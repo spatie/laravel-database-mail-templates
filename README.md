@@ -24,9 +24,10 @@ Render Laravel mailables using a template stored in the database.
         - static method in mailable? yep
         - kan niet uit view data komen want geen instance
         - misschien aanraden om alles in public properties te steken want toch geen build nodig? -> yep
-- [ ] Markdown templates?
+- [x] Markdown templates?
     - why not - bijhouden in db wel
-- [ ] Mail template body localized?
+    - with themes!
+- [x] Mail template body localized?
     - json column? of in userland?
 - [x] Layouts?
     - Manier om rond de template nog een header en footer toe te voegen

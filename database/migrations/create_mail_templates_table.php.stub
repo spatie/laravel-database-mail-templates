@@ -13,6 +13,8 @@ class CreateMailTemplatesTable extends Migration
             $table->string('mailable');
             $table->text('subject')->nullable();
             $table->text('template');
+            $table->string('type')->default('html');
+            $table->string('markdown_theme')->nullable();
             $table->timestamps();
         });
     }

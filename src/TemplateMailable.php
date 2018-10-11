@@ -17,13 +17,18 @@ abstract class TemplateMailable extends Mailable
 
     protected function buildView()
     {
-        $html = $this
-            ->getMailTemplateRenderer()
-            ->render($this->buildViewData());
+        $renderer = $this->getMailTemplateRenderer();
 
-        return [
+        $viewData = $this->buildViewData();
+
+        $html = $renderer ->render($viewData);
+
+        $text = $renderer->renderTextView($viewData);
+
+        return array_filter([
             'html' => new HtmlString($html),
-        ];
+            'text' => $text,
+        ]);
     }
 
     protected function buildSubject($message)

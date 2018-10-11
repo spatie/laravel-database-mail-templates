@@ -72,4 +72,16 @@ class TemplateMailableTest extends TestCase
     {
         $this->markTestIncomplete();
     }
+
+    /** @test */
+    public function it_can_render_markdown()
+    {
+        $this->markTestIncomplete();
+    }
+
+    /** @test */
+    public function it_can_render_markdown_with_a_theme()
+    {
+        $this->markTestIncomplete();
+    }
 }
