@@ -24,7 +24,7 @@ class TemplateMailableTest extends TestCase
     {
         MailTemplate::create([
             'mailable' => WelcomeMail::class,
-            'template' => 'Hello, {{ name }}'
+            'template' => 'Hello, {{ name }}',
         ]);
 
         $renderedMail = (new WelcomeMail($this->user))->render();

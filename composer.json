@@ -1,11 +1,11 @@
 {
-    "name": "spatie/laravel-mail-templates",
+    "name": "spatie/laravel-database-mail-templates",
     "description": "Render Laravel mailables using a template stored in the database.",
     "keywords": [
         "spatie",
-        "laravel-mail-templates"
+        "laravel-database-mail-templates"
     ],
-    "homepage": "https://github.com/spatie/laravel-mail-templates",
+    "homepage": "https://github.com/spatie/laravel-database-mail-templates",
     "license": "MIT",
     "authors": [
         {
@@ -46,9 +46,6 @@
     },
     "extra": {
         "laravel": {
-            "providers": [
-                "Spatie\\MailTemplates\\SkeletonServiceProvider"
-            ]
         }
     }
 }
