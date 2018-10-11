@@ -1,35 +1,39 @@
 {
-    "name": "spatie/:package_name",
-    "description": ":package_description",
+    "name": "spatie/laravel-mail-templates",
+    "description": "Render Laravel mailables using a template stored in the database.",
     "keywords": [
         "spatie",
-        ":package_name"
+        "laravel-mail-templates"
     ],
-    "homepage": "https://github.com/spatie/:package_name",
+    "homepage": "https://github.com/spatie/laravel-mail-templates",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
+            "name": "Alex Vanderbist",
+            "email": "alex@spatie.be",
             "homepage": "https://spatie.be",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^7.1"
+        "php": "^7.1",
+        "laravel/framework": "~5.7",
+        "mustache/mustache": "^2.12"
     },
     "require-dev": {
-        "larapack/dd": "^1.0",
+        "ext-pdo_sqlite": "*",
+        "mockery/mockery": "^1.0.0",
+        "orchestra/testbench": "~3.7",
         "phpunit/phpunit": "^7.0"
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\Skeleton\\": "src"
+            "Spatie\\MailTemplates\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\Skeleton\\Tests\\": "tests"
+            "Spatie\\MailTemplates\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -43,11 +47,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\Skeleton\\SkeletonServiceProvider"
-            ],
-            "aliases": {
-                "Skeleton": "Spatie\\Skeleton\\SkeletonFacade"
-            }
+                "Spatie\\MailTemplates\\SkeletonServiceProvider"
+            ]
         }
     }
 }

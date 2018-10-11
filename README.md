@@ -1,26 +1,48 @@
 # Very short description of the package
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/:package_name.svg?style=flat-square)](https://packagist.org/packages/spatie/:package_name)
-[![Build Status](https://img.shields.io/travis/spatie/:package_name/master.svg?style=flat-square)](https://travis-ci.org/spatie/:package_name)
-[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/:package_name.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/:package_name)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/:package_name.svg?style=flat-square)](https://packagist.org/packages/spatie/:package_name)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-mail-templates.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-mail-templates)
+[![Build Status](https://img.shields.io/travis/spatie/laravel-mail-templates/master.svg?style=flat-square)](https://travis-ci.org/spatie/laravel-mail-templates)
+[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-mail-templates.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-mail-templates)
+[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-mail-templates.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-mail-templates)
 
-**Note:** Replace ```:author_name``` ```:author_username``` ```:author_email``` ```:package_name``` ```:package_description``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md) and [composer.json](composer.json) files, then delete this line.
+Render Laravel mailables using a template stored in the database. Name is a wip.
 
-This is where your description should go. Try and limit it to a paragraph or two.
+## Notes
+
+- MailTemplate moet aanpasbaar model zijn
+    - zoals permission package default voorzien maar users aanraden om eigen model te maken?
+    - meerdere models moeten mogelijk zijn
+        - bv. `MailTemplate` voor algemene mails en `EventMailTemplate` voor template gekoppeld aan event
+- Variabelen per email type template instellen
+    - in template string en in subject
+    - moustache `{{ var }}` syntax
+    - variabelen kunnen ophalen om bij wysiwyg editor weer te geven 
+        - static method in mailable? 
+        - kan niet uit view data komen want geen instance
+        - misschien aanraden om alles in public properties te steken want toch geen build nodig?
+- Markdown templates?
+    - why not - bijhouden in db wel
+- Mail template body localized?
+    - json column? of in userland?
+- Layouts?
+    - Manier om rond de template nog een header en footer toe te voegen
+    - Mogelijkheid tot blade view, markdown, html (uit database) of gewoon geen
+    - Layout is gekoppeld aan MailTemplate (model) of TemplateMailable (class)?
+- Betere naam nodig
+- Nova tool?
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require spatie/:package_name
+composer require spatie/laravel-mail-templates
 ```
 
 ## Usage
 
 ``` php
-$skeleton = new Spatie\Skeleton();
+$skeleton = new Spatie\MailTemplates();
 echo $skeleton->echoPhrase('Hello, Spatie!');
 ```
 
@@ -52,7 +74,7 @@ We publish all received postcards [on our company website](https://spatie.be/en/
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Alex Vanderbist](https://github.com/alexvanderbist)
 - [All Contributors](../../contributors)
 
 ## Support us
