@@ -2,8 +2,10 @@
 
 namespace Spatie\MailTemplates\Tests;
 
+use Illuminate\Contracts\Mail\Mailable;
 use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Spatie\MailTemplates\Models\MailTemplate;
 
 class TestCase extends OrchestraTestCase
 {
@@ -40,5 +42,13 @@ class TestCase extends OrchestraTestCase
 
         include_once __DIR__.'/../database/migrations/create_mail_templates_table.php.stub';
         (new \CreateMailTemplatesTable())->up();
+    }
+
+    public function createMailTemplateForMailable(string $mailable): MailTemplate
+    {
+        return MailTemplate::create([
+            'mailable' => $mailable,
+            'template' => 'Hello, {{ name }}',
+        ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Spatie\MailTemplates;
 
+use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\HtmlString;
 use ReflectionClass;
@@ -10,9 +11,16 @@ use Spatie\MailTemplates\Models\MailTemplate;
 
 abstract class TemplateMailable extends Mailable
 {
+    protected static $templateModel = MailTemplate::class;
+
     public static function getVariables(): array
     {
         return static::getPublicProperties();
+    }
+
+    public function getTemplateModel(): string
+    {
+        return static::$templateModel;
     }
 
     protected function buildView()
@@ -58,11 +66,30 @@ abstract class TemplateMailable extends Mailable
         return null;
     }
 
+    public function build()
+    {
+        return $this;
+    }
+
     protected static function getPublicProperties(): array
     {
         $class = new ReflectionClass(static::class);
 
         return collect($class->getProperties(ReflectionProperty::IS_PUBLIC))
+            ->map->getName()
+            ->diff(static::getIgnoredPublicProperties())
+            ->values()
+            ->all();
+    }
+
+    protected static function getIgnoredPublicProperties(): array
+    {
+        $mailableClass = new ReflectionClass(Mailable::class);
+        $queueableClass = new ReflectionClass(Queueable::class);
+
+        return collect()
+            ->merge($mailableClass->getProperties(ReflectionProperty::IS_PUBLIC))
+            ->merge($queueableClass->getProperties(ReflectionProperty::IS_PUBLIC))
             ->map->getName()
             ->values()
             ->all();

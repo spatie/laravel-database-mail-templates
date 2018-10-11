@@ -5,52 +5,42 @@ namespace Spatie\MailTemplates\Tests;
 use Spatie\MailTemplates\Exceptions\CannotRenderTemplateMailable;
 use Spatie\MailTemplates\Exceptions\MissingMailTemplate;
 use Spatie\MailTemplates\Models\MailTemplate;
-use Spatie\MailTemplates\Tests\stubs\User;
-use Spatie\MailTemplates\Tests\stubs\WelcomeMail;
+use Spatie\MailTemplates\Tests\stubs\BadLayoutMail;
+use Spatie\MailTemplates\Tests\stubs\BasicMail;
+use Spatie\MailTemplates\Tests\stubs\LayoutMail;
 
 class TemplateMailableTest extends TestCase
 {
-    /** @var  User */
-    protected $user;
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->user = new User('John Doe');
-    }
 
     /** @test */
     public function it_can_render_a_mailable()
     {
         MailTemplate::create([
-            'mailable' => WelcomeMail::class,
+            'mailable' => BasicMail::class,
             'template' => 'Hello, {{ name }}',
         ]);
 
-        $renderedMail = (new WelcomeMail($this->user))->render();
+        $renderedMail = (new BasicMail('John'))->render();
 
-        $this->assertEquals('Hello, John Doe', $renderedMail);
+        $this->assertEquals('Hello, John', $renderedMail);
+    }
+
+    /** @test */
+    public function it_can_get_the_available_template_variables_for_a_mailable()
+    {
+        $variables = BasicMail::getVariables();
+
+        $this->assertEquals(['name', 'email'], $variables);
     }
 
     /** @test */
     public function it_can_render_a_mailable_with_a_layout()
     {
-        $this->markTestIncomplete();
-    }
+        $this->createMailTemplateForMailable(LayoutMail::class);
 
-    /** @test */
-    public function it_can_render_a_mail_template_with_a_layout()
-    {
-        $this->markTestIncomplete();
-    }
+        $renderedMail = (new LayoutMail('John'))->render();
 
-    /** @test */
-    public function it_throws_an_exception_if_no_mail_template_exists_for_mailable()
-    {
-        $this->expectException(MissingMailTemplate::class);
-
-        (new WelcomeMail($this->user))->render();
+        $this->assertEquals('<main>Hello, John</main>', $renderedMail);
     }
 
     /** @test */
@@ -58,30 +48,16 @@ class TemplateMailableTest extends TestCase
     {
         $this->expectException(CannotRenderTemplateMailable::class);
 
-        $this->markTestIncomplete();
+        $this->createMailTemplateForMailable(BadLayoutMail::class);
+
+        (new BadLayoutMail('John'))->render();
     }
 
     /** @test */
-    public function it_can_get_the_available_template_variables_for_a_mailable()
+    public function it_throws_an_exception_if_no_mail_template_exists_for_mailable()
     {
-        $this->markTestIncomplete();
-    }
+        $this->expectException(MissingMailTemplate::class);
 
-    /** @test */
-    public function it_can_get_the_available_template_variables_for_a_mail_template()
-    {
-        $this->markTestIncomplete();
-    }
-
-    /** @test */
-    public function it_can_render_markdown()
-    {
-        $this->markTestIncomplete();
-    }
-
-    /** @test */
-    public function it_can_render_markdown_with_a_theme()
-    {
-        $this->markTestIncomplete();
+        (new BasicMail('John'))->render();
     }
 }

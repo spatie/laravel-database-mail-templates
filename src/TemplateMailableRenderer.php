@@ -28,7 +28,8 @@ class TemplateMailableRenderer
         $this->mustache = $mustache;
         $this->markdown = $markdown;
 
-        $this->mailTemplate = MailTemplate::findForMailable($templateMailable);
+        $templateModel = $this->templateMailable->getTemplateModel();
+        $this->mailTemplate = $templateModel::findForMailable($templateMailable);
     }
 
     public function render(array $data = []): string
