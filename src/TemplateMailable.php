@@ -4,55 +4,67 @@ namespace Spatie\MailTemplates;
 
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\HtmlString;
-use Spatie\MailTemplates\Exceptions\InvalidTemplateMailable;
+use ReflectionClass;
+use ReflectionProperty;
 use Spatie\MailTemplates\Models\MailTemplate;
-use Mustache_Engine;
 
 abstract class TemplateMailable extends Mailable
 {
-    /** @var MailTemplate */
-    protected $mailTemplate;
-
-    /** @var Mustache_Engine */
-    protected $mustache;
-
-    public function __construct()
+    public static function getVariables(): array
     {
-        $this->mustache = new Mustache_Engine();
-
-        $this->mailTemplate = MailTemplate::findForMailable($this);
-
-        $this->html($this->mailTemplate->template);
-
-        $this->subject($this->mailTemplate->subject);
+        return static::getPublicProperties();
     }
-
-    abstract public static function getVariables(): array;
 
     protected function buildView()
     {
-        $html = $this->renderInLayout($this->html);
-
-        $html = $this->mustache->render($html, $this->viewData);
+        $html = $this
+            ->getMailTemplateRenderer()
+            ->render($this->buildViewData());
 
         return [
             'html' => new HtmlString($html),
         ];
     }
 
-    protected function renderInLayout(string $html): string
+    protected function buildSubject($message)
     {
-        $layout = $this->getLayout() ?? '{{{ body }}}';
+        if ($this->subject) {
+            $message->subject($this->subject);
 
-        if (! str_contains($layout, ['{{{body}}}', '{{{ body }}}', '{{body}}', '{{ body }}'])) {
-            throw InvalidTemplateMailable::layoutDoesNotContainABodyPlaceHolder($this);
+            return $this;
         }
 
-        return $this->mustache->render($layout, ['body' => $html]);
+        if (MailTemplate::findForMailable($this)->subject)
+        {
+            $subject = $this
+                ->getMailTemplateRenderer()
+                ->renderSubject($this->buildViewData());
+
+            $message->subject($subject);
+
+            return $this;
+        }
+
+        return parent::buildSubject($message);
     }
 
-    protected function getLayout(): string
+    public function getLayout(): ?string
     {
-        return '<div>{{{ body }}}</div>';
+        return null;
+    }
+
+    protected static function getPublicProperties(): array
+    {
+        $class = new ReflectionClass(static::class);
+
+        return collect($class->getProperties(ReflectionProperty::IS_PUBLIC))
+            ->map->getName()
+            ->values()
+            ->all();
+    }
+
+    protected function getMailTemplateRenderer(): TemplateMailableRenderer
+    {
+        return app(TemplateMailableRenderer::class, ['templateMailable' => $this]);
     }
 }

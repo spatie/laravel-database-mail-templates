@@ -9,27 +9,29 @@ Render Laravel mailables using a template stored in the database. Name is a wip.
 
 ## Notes
 
-- MailTemplate moet aanpasbaar model zijn
+- [x] MailTemplate moet aanpasbaar model zijn
     - zoals permission package default voorzien maar users aanraden om eigen model te maken?
     - meerdere models moeten mogelijk zijn
         - bv. `MailTemplate` voor algemene mails en `EventMailTemplate` voor template gekoppeld aan event
-- Variabelen per email type template instellen
-    - in template string en in subject
+        - -> overwrite `scopeForMailable`
+- [x] Variabelen per email type template instellen
+    - in template string, subject en layout
+        - done
     - moustache `{{ var }}` syntax
+        - done
     - variabelen kunnen ophalen om bij wysiwyg editor weer te geven 
-        - static method in mailable? 
+        - static method in mailable? yep
         - kan niet uit view data komen want geen instance
-        - misschien aanraden om alles in public properties te steken want toch geen build nodig?
-- Markdown templates?
+        - misschien aanraden om alles in public properties te steken want toch geen build nodig? -> yep
+- [ ] Markdown templates?
     - why not - bijhouden in db wel
-- Mail template body localized?
+- [ ] Mail template body localized?
     - json column? of in userland?
-- Layouts?
+- [x] Layouts?
     - Manier om rond de template nog een header en footer toe te voegen
     - Mogelijkheid tot blade view, markdown, html (uit database) of gewoon geen
-    - Layout is gekoppeld aan MailTemplate (model) of TemplateMailable (class)?
-- Betere naam nodig
-- Nova tool?
+    - Layout is gekoppeld aan MailTemplate (model) of TemplateMailable (class)? 
+        -> op beiden zit `getLayout()` method die overschreven kan worden om iets anders dan `null` terug te geven
 
 ## Installation
 
