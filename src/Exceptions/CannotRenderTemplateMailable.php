@@ -3,8 +3,8 @@
 namespace Spatie\MailTemplates\Exceptions;
 
 use Exception;
-use Spatie\MailTemplates\Models\MailTemplate;
 use Spatie\MailTemplates\TemplateMailable;
+use Spatie\MailTemplates\Models\MailTemplate;
 
 class CannotRenderTemplateMailable extends Exception
 {

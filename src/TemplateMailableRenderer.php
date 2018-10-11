@@ -2,11 +2,10 @@
 
 namespace Spatie\MailTemplates;
 
-use Illuminate\Mail\Markdown;
-use Illuminate\Support\Facades\Mail;
 use Mustache_Engine;
-use Spatie\MailTemplates\Exceptions\CannotRenderTemplateMailable;
+use Illuminate\Mail\Markdown;
 use Spatie\MailTemplates\Models\MailTemplate;
+use Spatie\MailTemplates\Exceptions\CannotRenderTemplateMailable;
 
 class TemplateMailableRenderer
 {

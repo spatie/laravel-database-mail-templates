@@ -2,7 +2,6 @@
 
 namespace Spatie\MailTemplates\Tests;
 
-use Illuminate\Support\Facades\Mail;
 use Spatie\MailTemplates\Models\MailTemplate;
 use Spatie\MailTemplates\Tests\stubs\BasicMail;
 use Spatie\MailTemplates\Tests\stubs\CustomTemplateModel;

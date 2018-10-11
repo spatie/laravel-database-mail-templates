@@ -2,11 +2,11 @@
 
 namespace Spatie\MailTemplates;
 
+use ReflectionClass;
+use ReflectionProperty;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\HtmlString;
-use ReflectionClass;
-use ReflectionProperty;
 use Spatie\MailTemplates\Models\MailTemplate;
 
 abstract class TemplateMailable extends Mailable
@@ -29,7 +29,7 @@ abstract class TemplateMailable extends Mailable
 
         $viewData = $this->buildViewData();
 
-        $html = $renderer ->render($viewData);
+        $html = $renderer->render($viewData);
 
         $text = $renderer->renderTextView($viewData);
 
@@ -47,8 +47,7 @@ abstract class TemplateMailable extends Mailable
             return $this;
         }
 
-        if (MailTemplate::findForMailable($this)->subject)
-        {
+        if (MailTemplate::findForMailable($this)->subject) {
             $subject = $this
                 ->getMailTemplateRenderer()
                 ->renderSubject($this->buildViewData());
