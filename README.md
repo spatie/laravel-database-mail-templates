@@ -31,7 +31,7 @@ class WelcomeMail extends \Spatie\MailTemplates\TemplateMailable
 
 MailTemplate::create([
     'mailable' => WelcomeMail::class,
-    'template' => '<p>Hello, {{ name }}.</p>',
+    'body' => '<p>Hello, {{ name }}.</p>',
 ]);
 
 Mail::to($user->email)->send(new WelcomeMail($user));
@@ -65,14 +65,15 @@ php artisan vendor:publish --provider="Spatie\MailTemplates\MailTemplatesService
 
 ### Default or custom `MailTemplate`?
 
-By default this package comes with a `MailTemplate` model that allows you to store the HTML template for a mailable in the database. 
-If you don't need to multiple templates for a single mailable, the [default `MailTemplate` model](#default-mailtemplate-model) is way to go. 
-However, if you want to use different mail templates for the same mailable or associate mail templates with models in your application, you'll want a [custom `MailTemplate` model](#custom-mailtemplate-model).
+By default this package comes with a `MailTemplate` model that allows you to store the HTML template for a mailable in the database. If you don't plan on using multiple templates for a single mailable or customizing the `MailTemplate` model, this default model is the way to go. 
+
+However, if you want to use multiple mail templates for the same mailable based on application logic or customize the mail template model, you'll want a [custom `MailTemplate` model](#custom-mailtemplate-model).
 
 ### Default `MailTemplate` model
 
-After installing the package and running `php artisan migrate` you'll have a new table in your database called `mail_templates` that'll be used by the `MailTemplate` model. 
-This `MailTemplate` model has a `mailable` property that corresponds to the `Mailable`'s class name. The `subject` and `template` properties are both used to store mustache template strings.
+After installing the package and running the migrations you'll have a new table in your database called `mail_templates`. This table will be used by the `MailTemplate` model.
+
+The default `MailTemplate` model has a `mailable` property that corresponds to the `Mailable`'s class name. It also has a `subject` and `body` property which are both used to store [mustache template](http://mustache.github.io/) strings.
 
 You might want to set up a seeder that seeds your application's necessary templates:
 
@@ -87,7 +88,7 @@ class MailTemplatesSeeder extends Seeder
         MailTemplate::create([
             'mailable' => App\Mails\WelcomeUserMail::class,
             'subject' => 'Welcome, {{ name }}',
-            'template' => '<h1>Hello, {{ name }}!</h1>',
+            'body' => '<h1>Hello, {{ name }}!</h1>',
         ]);
     }
 }
@@ -114,14 +115,14 @@ class WelcomeMail extends \Spatie\MailTemplates\TemplateMailable
 }
 ```
 
-By extending the `\Spatie\MailTemplates\TemplateMailable` class we'll render and send this mailable using the corresponding `MailTemplate`'s subject and body template. All public properties on the `WelcomeMail` will be passed to the template string.
+By extending the `\Spatie\MailTemplates\TemplateMailable` class this mailable will be rendered using the corresponding `MailTemplate`. All public properties on the `WelcomeMail` will be available in the template.
 
 ### Custom `MailTemplate` model
 
-The default `MailTemplate` model is sufficient for using _one_ database mail template for _one_ mailable. If you want to use different mail templates for the same mailable _or_ extend the `MailTemplate` model, we highly encourage you to publish the `mail_template` migration and extend the `MailTemplate` model.
+The default `MailTemplate` model is sufficient for using _one_ database mail template for _one_ mailable. If you want to use multiple mail templates for the same mailable _or_ extend the `MailTemplate` model, we highly encourage you to publish the `mail_template` migration and create your own mail template model by extending `MailTemplate`.
 
-Imagine an application like meetup.com that deals with different meetup groups. The application has a couple of different mailables like `NewMeetupPlannedMail`, `MeetupCancelledMail`, etc... 
-Using this package we can give every meetup group its own `MeetupMailTemplate`s that contain their own copy for each mailable. The `MeetupMailTemplate` model would look something like this:
+Imagine an application like meetup.com that deals with different meetup groups. The application has a couple of different mailables like `NewMeetupPlannedMail` and `MeetupCancelledMail` to inform users of new meetups.
+Using this package we can create a `MeetupMailTemplate` for each meetup group. This way each group can add their own copy in the template. The `MeetupMailTemplate` model would look something like this:
 
 ```php
 class MeetupMailTemplate extends \Spatie\MailTemplates\MailTemplate
@@ -145,12 +146,12 @@ class MeetupMailTemplate extends \Spatie\MailTemplates\MailTemplate
 }
 ``` 
 
-As you can see, our `MeetupMailTemplate` model extends the package's `MailTemplate` and overrides a couple of methods. We've also added the relationship to the `MeetupGroup` that this mail template belongs to.
+`MeetupMailTemplate` extends the package's `MailTemplate` and overrides a couple of methods. We've also added the relationship to the `MeetupGroup` that this mail template belongs to.
 
-Using the `getLayout()` method we use the meetup group's custom mail header and footer. [Read more about adding a header and footer to a mail template here.](#adding-a-header-and-footer-around-a-mail-template) 
+By extending the `getLayout()` method we can provide the group's custom mail header and footer. [Read more about adding a header and footer to a mail template here.](#adding-a-header-and-footer-around-a-mail-template) 
 
-We've also extended the `scopeForMailable()` method. When sending a `TemplateMailable`, this scope will be used to fetch the corresponding mail template from the database. 
-On top of the default `mailable` where-clause we've added a `meetup_group_id` where-clause that'll match the mailable's `meeting_group_id` to the the mail template.
+We've also extended the `scopeForMailable()` method which is used to fetch the corresponding mail template from the database. 
+On top of the default `mailable` where-clause we've added a `meetup_group_id` where-clause that'll query for the mailable's `meeting_group_id`.
 
 Next, let's have a look at what our `NewMeetupPlannedMail` might look like:
 
@@ -172,7 +173,7 @@ class NewMeetupPlannedMail extends \Spatie\MailTemplates\TemplateMailable
         $this->location = $meetup->location;
     }
     
-    // We need a method to get the meetup group id to use in the mail template's `scopeForMailable()` scope:
+    // provide a method to get the meetup group id so we can use it in MeetupMailTemplate
     public function getMeetupGroupId(): int
     {
         return $this->meetup->meetup_group_id;
@@ -180,7 +181,7 @@ class NewMeetupPlannedMail extends \Spatie\MailTemplates\TemplateMailable
 }
 ```
 
-When sending a `NewMeetupPlannedMail` the `MeetupMailTemplate` for the right meetup group will be used with that groups custom copy and mail layout. Pretty neat.
+When sending a `NewMeetupPlannedMail` the right `MeetupMailTemplate` for the meetup group will be used with its own custom copy and mail layout. Pretty neat.
 
 ### Template variables
 
@@ -200,11 +201,11 @@ MailTemplate::create(['mailable' => WelcomeMail::class, ... ])->variables;
 
 ### Adding a header and footer around a mail template
 
-You can add a `getLayout()` method on either your mailable or your mail template. `getLayout()` should return a string layout containing the `{{{ body }}}` placeholder. 
+You can extend the `getLayout()` method on either a template mailable or a mail template. `getLayout()` should return a string layout containing the `{{{ body }}}` placeholder. 
 
-When sending a `TemplateMailable` the compiled template will be rendered in place of the `{{{ body }}}` placeholder in the layout before being sent.
+When sending a `TemplateMailable` the compiled template will be rendered inside of the `{{{ body }}}` placeholder in the layout before being sent.
 
-The following example will send a `WelcomeMail` using a template from the database and a layout.
+The following example will send a `WelcomeMail` using a template wrapped in a layout.
 
 ```php
 class WelcomeMail extends \Spatie\MailTemplates\TemplateMailable
@@ -233,7 +234,7 @@ MailTemplate::create([
 Mail::to($user->email)->send(new WelcomeMail($user));
 ```
 
-The HTML for the sent email will look like this:
+The rendered HTML for the sent email will look like this:
 
 ```html
 <header>Site name!</header>
@@ -241,11 +242,13 @@ The HTML for the sent email will look like this:
 <footer>Copyright 2018</footer>
 ```
 
-#### Adding a layout based on your mail template model
+#### Adding a layout to a mail template model
 
-You might want to use a different layout based on what mail template is being used. This can be done by adding the `getLayout()` method on your custom `MailTemplate` model instead. 
+It is also possible to extend the `getLayout()` method of the `MailTemplate` model (instead of extending `getLayout()`on the mailable).
 
-The following example uses a different layout based on what `EventMailTemplate` is being used. As you can see, the layout is stored in the database on a related `Event` model.
+You might for example want to use a different layout based on a mail template model property. This can be done by adding the `getLayout()` method on your custom `MailTemplate` model instead. 
+
+The following example uses a different layout based on what `EventMailTemplate` is being used. As you can see, in this case the layout is stored in the database on a related `Event` model.
 
 ```php
 class EventMailTemplate extends \Spatie\MailTemplates\MailTemplate
