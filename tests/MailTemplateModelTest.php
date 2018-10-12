@@ -4,11 +4,21 @@ namespace Spatie\MailTemplates\Tests;
 
 use Spatie\MailTemplates\Models\MailTemplate;
 use Spatie\MailTemplates\Tests\stubs\BasicMail;
-use Spatie\MailTemplates\Tests\stubs\CustomTemplateModel;
-use Spatie\MailTemplates\Tests\stubs\CustomTemplateModelMail;
 
 class MailTemplateModelTest extends TestCase
 {
+    /** @test */
+    public function it_can_resolve_the_right_mail_template_for_a_mailable()
+    {
+        $this->markTestIncomplete();
+    }
+
+    /** @test */
+    public function it_can_resolve_a_mail_template_for_a_mailable_based_on_a_custom_scope()
+    {
+        $this->markTestIncomplete();
+    }
+
     /** @test */
     public function it_can_get_the_available_template_variables_for_a_mail_template()
     {
