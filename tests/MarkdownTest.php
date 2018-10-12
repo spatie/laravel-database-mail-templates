@@ -13,6 +13,7 @@ class MarkdownTest extends TestCase
     /** @test */
     public function it_can_render_markdown()
     {
+        $this->markTestSkipped('Cant render markdown mails with components and themes without writing to view file :(');
         MailTemplate::create([
             'mailable' => BasicMail::class,
             'template' => $this->getMarkdownTemplate(),
@@ -20,8 +21,6 @@ class MarkdownTest extends TestCase
         ]);
 
         $renderedMail = (new BasicMail('John'))->render();
-
-        $this->markTestSkipped('Cant render markdown mails with components and themes without writing to view file :(');
 
         $this->assertMatchesSnapshot($renderedMail);
     }
@@ -29,16 +28,16 @@ class MarkdownTest extends TestCase
     /** @test */
     public function it_can_render_markdown_with_a_theme()
     {
+        $this->markTestSkipped('Cant render markdown mails with components and themes without writing to view file :(');
+
         MailTemplate::create([
             'mailable' => BasicMail::class,
             'template' => $this->getMarkdownTemplate(),
             'type' => 'markdown',
-            'theme' => 'peacocks-in-space',
+            'markdown_theme' => 'peacocks-in-space',
         ]);
 
         $renderedMail = (new BasicMail('John'))->render();
-
-        $this->markTestSkipped('Cant render markdown mails with components and themes without writing to view file :(');
 
         $this->assertMatchesSnapshot($renderedMail);
     }
