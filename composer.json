@@ -46,6 +46,9 @@
     },
     "extra": {
         "laravel": {
+            "providers": [
+                "Spatie\\MailTemplates\\MailTemplatesServiceProvider"
+            ]
         }
     }
 }

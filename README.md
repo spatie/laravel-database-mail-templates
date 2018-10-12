@@ -8,33 +8,6 @@
 
 Render Laravel mailables using a template stored in the database.
 
-## Notes
-
-- [x] MailTemplate moet aanpasbaar model zijn
-    - zoals permission package default voorzien maar users aanraden om eigen model te maken?
-    - meerdere models moeten mogelijk zijn
-        - bv. `MailTemplate` voor algemene mails en `EventMailTemplate` voor template gekoppeld aan event
-        - -> overwrite `scopeForMailable`
-- [x] Variabelen per email type template instellen
-    - in template string, subject en layout
-        - done
-    - moustache `{{ var }}` syntax
-        - done
-    - variabelen kunnen ophalen om bij wysiwyg editor weer te geven 
-        - static method in mailable? yep
-        - kan niet uit view data komen want geen instance
-        - misschien aanraden om alles in public properties te steken want toch geen build nodig? -> yep
-- [x] Markdown templates?
-    - why not - bijhouden in db wel
-    - with themes!
-- [x] Mail template body localized?
-    - json column? of in userland?
-- [x] Layouts?
-    - Manier om rond de template nog een header en footer toe te voegen
-    - Mogelijkheid tot blade view, markdown, html (uit database) of gewoon geen
-    - Layout is gekoppeld aan MailTemplate (model) of TemplateMailable (class)? 
-        -> op beiden zit `getLayout()` method die overschreven kan worden om iets anders dan `null` terug te geven
-
 ## Installation
 
 You can install the package via composer:
@@ -45,10 +18,10 @@ composer require spatie/laravel-database-mail-templates
 
 ## Usage
 
-``` php
-$skeleton = new Spatie\MailTemplates();
-echo $skeleton->echoPhrase('Hello, Spatie!');
-```
+
+
+- General usage using `MailTemplate`
+- Advanced usage using custom `MailTemplate` model
 
 ### Testing
 
