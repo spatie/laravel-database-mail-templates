@@ -4,6 +4,8 @@ namespace Spatie\MailTemplates\Tests;
 
 use Spatie\MailTemplates\Models\MailTemplate;
 use Spatie\MailTemplates\Tests\stubs\Mails\BasicMail;
+use Spatie\MailTemplates\Tests\stubs\Mails\CustomTemplateModelMail;
+use Spatie\MailTemplates\Tests\stubs\Models\CustomMailTemplate;
 
 class MailTemplateModelTest extends TestCase
 {
@@ -34,7 +36,7 @@ class MailTemplateModelTest extends TestCase
     /** @test */
     public function it_can_render_a_mail_template_with_a_layout()
     {
-        CustomTemplateModel::create([
+        CustomMailTemplate::create([
             'mailable' => CustomTemplateModelMail::class,
             'template' => 'Hello, {{ name }}',
         ]);
