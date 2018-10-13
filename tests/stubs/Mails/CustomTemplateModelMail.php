@@ -1,14 +1,17 @@
 <?php
 
-namespace Spatie\MailTemplates\Tests\stubs;
+namespace Spatie\MailTemplates\Tests\stubs\Mails;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Spatie\MailTemplates\TemplateMailable;
+use Spatie\MailTemplates\Tests\stubs\Models\CustomMailTemplate;
 
-class BasicMail extends TemplateMailable
+class CustomTemplateModelMail extends TemplateMailable
 {
     use Queueable, SerializesModels;
+
+    protected static $templateModel = CustomMailTemplate::class;
 
     /** @var string */
     public $name;

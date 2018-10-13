@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\MailTemplates\Tests\stubs;
+namespace Spatie\MailTemplates\Tests\stubs\Mails;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Spatie\MailTemplates\TemplateMailable;
 
-class LayoutMail extends TemplateMailable
+class BadLayoutMail extends TemplateMailable
 {
     use Queueable, SerializesModels;
 
@@ -24,6 +24,6 @@ class LayoutMail extends TemplateMailable
 
     public function getLayout(): string
     {
-        return '<main>{{{ body }}}</main>';
+        return '<main>no body!</main>';
     }
 }

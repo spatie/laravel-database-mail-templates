@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\MailTemplates\Tests\stubs;
+namespace Spatie\MailTemplates\Tests\stubs\Models;
 
 use Spatie\MailTemplates\Models\MailTemplate;
 
-class CustomTemplateModel extends MailTemplate
+class CustomMailTemplate extends MailTemplate
 {
     protected $table = 'mail_templates';
 

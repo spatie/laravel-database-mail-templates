@@ -3,7 +3,6 @@
 namespace Spatie\MailTemplates\Tests;
 
 use Illuminate\Foundation\Application;
-use Illuminate\Contracts\Mail\Mailable;
 use Spatie\MailTemplates\MailTemplatesServiceProvider;
 use Spatie\MailTemplates\Models\MailTemplate;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
@@ -46,11 +45,16 @@ class TestCase extends OrchestraTestCase
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
     }
 
-    public function createMailTemplateForMailable(string $mailable): MailTemplate
-    {
-        return MailTemplate::create([
+    public function createMailTemplateForMailable(
+        string $mailable,
+        ?string $mailTemplate = null,
+        array $attributes = []
+    ): MailTemplate {
+        $mailTemplate = $mailTemplate ?? MailTemplate::class;
+
+        return $mailTemplate::create(array_merge([
             'mailable' => $mailable,
             'template' => 'Hello, {{ name }}',
-        ]);
+        ], $attributes));
     }
 }

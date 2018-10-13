@@ -3,7 +3,7 @@
 namespace Spatie\MailTemplates\Tests;
 
 use Spatie\MailTemplates\Models\MailTemplate;
-use Spatie\MailTemplates\Tests\stubs\BasicMail;
+use Spatie\MailTemplates\Tests\stubs\Mails\BasicMail;
 use Spatie\Snapshots\MatchesSnapshots;
 
 class MarkdownTest extends TestCase

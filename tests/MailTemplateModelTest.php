@@ -3,20 +3,20 @@
 namespace Spatie\MailTemplates\Tests;
 
 use Spatie\MailTemplates\Models\MailTemplate;
-use Spatie\MailTemplates\Tests\stubs\BasicMail;
+use Spatie\MailTemplates\Tests\stubs\Mails\BasicMail;
 
 class MailTemplateModelTest extends TestCase
 {
     /** @test */
     public function it_can_resolve_the_right_mail_template_for_a_mailable()
     {
-        $this->markTestIncomplete();
-    }
+        $mailTemplate = $this->createMailTemplateForMailable(BasicMail::class);
 
-    /** @test */
-    public function it_can_resolve_a_mail_template_for_a_mailable_based_on_a_custom_scope()
-    {
-        $this->markTestIncomplete();
+        $mailable = new BasicMail('John');
+
+        $resolvedMailTemplate = MailTemplate::findForMailable($mailable);
+
+        $this->assertEquals($mailTemplate->id, $resolvedMailTemplate->id);
     }
 
     /** @test */
