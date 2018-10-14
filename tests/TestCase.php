@@ -18,18 +18,6 @@ class TestCase extends OrchestraTestCase
         $this->setUpDatabase();
     }
 
-    protected function getEnvironmentSetUp($app)
-    {
-        $app['config']->set('database.default', 'sqlite');
-        $app['config']->set('database.connections.sqlite', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
-        ]);
-
-        $app['config']->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
-    }
-
     protected function getPackageProviders($app)
     {
         return [
