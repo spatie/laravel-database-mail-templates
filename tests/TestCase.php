@@ -2,7 +2,9 @@
 
 namespace Spatie\MailTemplates\Tests;
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Schema;
 use Spatie\MailTemplates\Models\MailTemplate;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Spatie\MailTemplates\MailTemplatesServiceProvider;
@@ -16,9 +18,6 @@ class TestCase extends OrchestraTestCase
         $this->setUpDatabase();
     }
 
-    /**
-     * @param Application $app
-     */
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('database.default', 'sqlite');
@@ -42,7 +41,14 @@ class TestCase extends OrchestraTestCase
     {
         $this->artisan('migrate');
 
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        Schema::create('custom_mail_templates', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('mailable');
+            $table->text('subject')->nullable();
+            $table->text('template');
+            $table->boolean('use')->default(false);
+            $table->timestamps();
+        });
     }
 
     public function createMailTemplateForMailable(
