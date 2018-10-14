@@ -57,23 +57,15 @@ You can install the package via composer:
 composer require spatie/laravel-database-mail-templates
 ```
 
-If you want to use the [default `MailTemplate` model](#default-mailtemplate-model), all that's left to do is run `php artisan migrate` to create the necessary `mail_templates` table. No need to publish the migrations. 
+If you want to use the [default `MailTemplate` model](#default-mailtemplate-model), all that's left to do is run `php artisan migrate` to create the `mail_templates` table. There's no need to publish the migration. 
 
-If you plan on creating a [custom `MailTemplate` model](#custom-mailtemplate-model) continue by publishing the migrations:
+If you plan on creating a [custom `MailTemplate` model](#custom-mailtemplate-model) continue by publishing the migration:
 
 ```bash
 php artisan vendor:publish --provider="Spatie\MailTemplates\MailTemplatesServiceProvider" --tag="migrations"
 ```
 
 ## Usage
-
-### Default or custom `MailTemplate`?
-
-By default this package comes with a `MailTemplate` model that allows you to store the HTML template for a mailable in the database. If you don't plan on using multiple templates for a single mailable or customizing the `MailTemplate` model, this default model is the way to go. 
-
-However, if you want to use multiple mail templates for the same mailable based on application logic or customize the mail template model, you'll want a [custom `MailTemplate` model](#custom-mailtemplate-model).
-
-### Default `MailTemplate` model
 
 After installing the package and running the migrations you'll have a new table in your database called `mail_templates`. This table will be used by the `MailTemplate` model.
 
@@ -121,15 +113,17 @@ class WelcomeMail extends \Spatie\MailTemplates\TemplateMailable
 
 By extending the `\Spatie\MailTemplates\TemplateMailable` class this mailable will be rendered using the corresponding `MailTemplate`. All public properties on the `WelcomeMail` will be available in the template.
 
-### Custom `MailTemplate` model
+### Customizing the `MailTemplate` model
 
 The default `MailTemplate` model is sufficient for using _one_ database mail template for _one_ mailable. If you want to use multiple mail templates for the same mailable _or_ extend the `MailTemplate` model, we highly encourage you to publish the `mail_template` migration and create your own mail template model by extending `MailTemplate`.
 
-Imagine an application like meetup.com that deals with different meetup groups. The application has a couple of different mailables like `NewMeetupPlannedMail` and `MeetupCancelledMail` to inform users of new meetups.
+Imagine an application like [meetup.com](https://meetup.com) that deals with different meetup groups. The application has a couple of different mailables like `NewMeetupPlannedMail` and `MeetupCancelledMail` to inform users of new meetups.
 Using this package we can create a `MeetupMailTemplate` for each meetup group. This way each group can add their own copy in the template. The `MeetupMailTemplate` model would look something like this:
 
 ```php
-class MeetupMailTemplate extends \Spatie\MailTemplates\MailTemplate
+use Spatie\MailTemplates\MailTemplate;
+
+class MeetupMailTemplate extends MailTemplate
 {
     public function meetupGroup(): BelongsTo
     {
@@ -152,7 +146,7 @@ class MeetupMailTemplate extends \Spatie\MailTemplates\MailTemplate
 
 `MeetupMailTemplate` extends the package's `MailTemplate` and overrides a couple of methods. We've also added the relationship to the `MeetupGroup` that this mail template belongs to.
 
-By extending the `getLayout()` method we can provide the group's custom mail header and footer. [Read more about adding a header and footer to a mail template here.](#adding-a-header-and-footer-around-a-mail-template) 
+By extending the `getLayout()` method we can provide the group's custom mail header and footer. [Read more about adding a header and footer to a mail template.](#adding-a-header-and-footer-around-a-mail-template) 
 
 We've also extended the `scopeForMailable()` method which is used to fetch the corresponding mail template from the database. 
 On top of the default `mailable` where-clause we've added a `meetup_group_id` where-clause that'll query for the mailable's `meeting_group_id`.
