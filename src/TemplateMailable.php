@@ -31,11 +31,9 @@ abstract class TemplateMailable extends Mailable
 
         $html = $renderer->render($viewData);
 
-        $text = $renderer->renderTextView($viewData);
-
         return array_filter([
             'html' => new HtmlString($html),
-            'text' => $text,
+            'text' => $this->textView ?? null,
         ]);
     }
 

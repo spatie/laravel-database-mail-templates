@@ -3,7 +3,6 @@
 namespace Spatie\MailTemplates;
 
 use Mustache_Engine;
-use Illuminate\Mail\Markdown;
 use Spatie\MailTemplates\Models\MailTemplate;
 use Spatie\MailTemplates\Exceptions\CannotRenderTemplateMailable;
 
@@ -18,14 +17,10 @@ class TemplateMailableRenderer
     /** @var Mustache_Engine */
     protected $mustache;
 
-    /** @var Markdown */
-    protected $markdown;
-
-    public function __construct(TemplateMailable $templateMailable, Mustache_Engine $mustache, Markdown $markdown)
+    public function __construct(TemplateMailable $templateMailable, Mustache_Engine $mustache)
     {
         $this->templateMailable = $templateMailable;
         $this->mustache = $mustache;
-        $this->markdown = $markdown;
 
         $templateModel = $this->templateMailable->getTemplateModel();
         $this->mailTemplate = $templateModel::findForMailable($templateMailable);
@@ -33,26 +28,12 @@ class TemplateMailableRenderer
 
     public function render(array $data = []): string
     {
-        $renderer = ($this->mailTemplate->isMarkdown()
-            ? $this->markdown->theme($this->mailTemplate->markdown_theme ?? 'default')
-            : $this->mustache);
-
-        $html = $renderer->render(
+        $html = $this->mustache->render(
             $this->mailTemplate->template,
             $data
         );
 
         return $this->renderInLayout($html, $data);
-    }
-
-    public function renderTextView(array $data = []): ?string
-    {
-        if ($this->mailTemplate->isMarkdown()) {
-            return $this->templateMailable->textView
-                ?? $this->markdown->renderText($this->mailTemplate->template, $data);
-        }
-
-        return $this->templateMailable->textView ?? null;
     }
 
     public function renderSubject(array $data = []): string

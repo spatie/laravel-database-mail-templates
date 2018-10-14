@@ -32,11 +32,6 @@ class MailTemplate extends Model
         return null;
     }
 
-    public function isMarkdown(): bool
-    {
-        return $this->type === 'markdown';
-    }
-
     public function getVariables(): array
     {
         $mailableClass = $this->mailable;
