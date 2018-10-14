@@ -3,9 +3,9 @@
 namespace Spatie\MailTemplates\Tests;
 
 use Illuminate\Foundation\Application;
-use Spatie\MailTemplates\MailTemplatesServiceProvider;
 use Spatie\MailTemplates\Models\MailTemplate;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Spatie\MailTemplates\MailTemplatesServiceProvider;
 
 class TestCase extends OrchestraTestCase
 {

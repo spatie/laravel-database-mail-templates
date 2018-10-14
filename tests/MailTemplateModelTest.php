@@ -4,9 +4,6 @@ namespace Spatie\MailTemplates\Tests;
 
 use Spatie\MailTemplates\Models\MailTemplate;
 use Spatie\MailTemplates\Tests\stubs\Mails\BasicMail;
-use Spatie\MailTemplates\Tests\stubs\Mails\CustomTemplateModelMail;
-use Spatie\MailTemplates\Tests\stubs\Mails\LayoutMail;
-use Spatie\MailTemplates\Tests\stubs\Models\CustomMailTemplate;
 use Spatie\MailTemplates\Tests\stubs\Models\LayoutMailTemplate;
 
 class MailTemplateModelTest extends TestCase
