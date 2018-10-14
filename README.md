@@ -13,7 +13,9 @@ Render Laravel mailables using a template stored in the database.
 The following example will send a `WelcomeMail` using a template stored in the database and wrapped in an HTML layout.
 
 ```php
-class WelcomeMail extends \Spatie\MailTemplates\TemplateMailable
+use Spatie\MailTemplates\TemplateMailable;
+
+class WelcomeMail extends TemplateMailable
 {
     /** @var string */
     public $name;
