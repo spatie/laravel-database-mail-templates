@@ -5,7 +5,9 @@ namespace Spatie\MailTemplates\Tests;
 use Spatie\MailTemplates\Models\MailTemplate;
 use Spatie\MailTemplates\Tests\stubs\Mails\BasicMail;
 use Spatie\MailTemplates\Tests\stubs\Mails\CustomTemplateModelMail;
+use Spatie\MailTemplates\Tests\stubs\Mails\LayoutMail;
 use Spatie\MailTemplates\Tests\stubs\Models\CustomMailTemplate;
+use Spatie\MailTemplates\Tests\stubs\Models\LayoutMailTemplate;
 
 class MailTemplateModelTest extends TestCase
 {
@@ -36,12 +38,12 @@ class MailTemplateModelTest extends TestCase
     /** @test */
     public function it_can_render_a_mail_template_with_a_layout()
     {
-        CustomMailTemplate::create([
-            'mailable' => CustomTemplateModelMail::class,
+        LayoutMailTemplate::create([
+            'mailable' => BasicMail::class,
             'template' => 'Hello, {{ name }}',
         ]);
 
-        $renderedMail = (new CustomTemplateModelMail('John'))->render();
+        $renderedMail = (new BasicMail('John'))->useTemplateModel(LayoutMailTemplate::class)->render();
 
         $this->assertEquals('<main>Hello, John</main>', $renderedMail);
     }

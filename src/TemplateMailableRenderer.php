@@ -69,7 +69,6 @@ class TemplateMailableRenderer
             ?? $this->mailTemplate->getLayout()
             ?? '{{{ body }}}';
 
-        // TODO: Regex for finding {{{ body }}} in layout string
         if ($layout && ! str_contains($layout, ['{{{body}}}', '{{{ body }}}', '{{body}}', '{{ body }}'])) {
             throw CannotRenderTemplateMailable::layoutDoesNotContainABodyPlaceHolder($this->templateMailable, $this->mailTemplate, $layout);
         }
