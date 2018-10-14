@@ -8,7 +8,7 @@ use Spatie\MailTemplates\Models\MailTemplate;
 
 class CannotRenderTemplateMailable extends Exception
 {
-    public static function layoutDoesNotContainABodyPlaceHolder(TemplateMailable $templateMailable, MailTemplate $mailTemplate, string $layoutHtml)
+    public static function layoutDoesNotContainABodyPlaceHolder(TemplateMailable $templateMailable)
     {
         $mailableClass = class_basename($templateMailable);
 
