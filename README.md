@@ -27,7 +27,9 @@ class WelcomeMail extends TemplateMailable
     
     public function getLayout(): string
     {
-        return file_get_contents(storage_path('mail-layouts/main.html'));
+        $pathToLayout = storage_path('mail-layouts/main.html');
+    
+        return file_get_contents($pathToLayout);
     }
 }
 
