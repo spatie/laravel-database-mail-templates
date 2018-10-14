@@ -3,18 +3,17 @@
 namespace Spatie\MailTemplates;
 
 use Mustache_Engine;
-use Spatie\MailTemplates\Models\MailTemplate;
 use Spatie\MailTemplates\Exceptions\CannotRenderTemplateMailable;
 
 class TemplateMailableRenderer
 {
-    /** @var TemplateMailable */
+    /** @var \Spatie\MailTemplates\TemplateMailable */
     protected $templateMailable;
 
-    /** @var MailTemplate */
+    /** @var \Spatie\MailTemplates\Models\MailTemplate */
     protected $mailTemplate;
 
-    /** @var Mustache_Engine */
+    /** @var \Mustache_Engine */
     protected $mustache;
 
     public function __construct(TemplateMailable $templateMailable, Mustache_Engine $mustache)
@@ -50,12 +49,22 @@ class TemplateMailableRenderer
             ?? $this->mailTemplate->getLayout()
             ?? '{{{ body }}}';
 
-        if ($layout && ! str_contains($layout, ['{{{body}}}', '{{{ body }}}', '{{body}}', '{{ body }}'])) {
-            throw CannotRenderTemplateMailable::layoutDoesNotContainABodyPlaceHolder($this->templateMailable, $this->mailTemplate, $layout);
-        }
+        $this->guardAgainstInvalidLayout($layout);
 
         $data = array_merge(['body' => $html], $data);
 
         return $this->mustache->render($layout, $data);
+    }
+
+    protected function guardAgainstInvalidLayout(string $layout)
+    {
+        if (!str_contains($layout, [
+            '{{{body}}}',
+            '{{{ body }}}',
+            '{{body}}',
+            '{{ body }}'
+        ])) {
+            throw CannotRenderTemplateMailable::layoutDoesNotContainABodyPlaceHolder($this->templateMailable, $this->mailTemplate, $layout);
+        }
     }
 }
