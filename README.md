@@ -82,7 +82,7 @@ class MailTemplatesSeeder extends Seeder
     public function run()
     {
         MailTemplate::create([
-            'mailable' => App\Mails\WelcomeUserMail::class,
+            'mailable' => \App\Mails\WelcomeUserMail::class,
             'subject' => 'Welcome, {{ name }}',
             'body' => '<h1>Hello, {{ name }}!</h1>',
         ]);
