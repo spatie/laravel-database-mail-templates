@@ -166,7 +166,7 @@ class NewMeetupPlannedMail extends TemplateMailable
     /** @var string */
     public $location;
     
-    /** @var Meetup */
+    /** @var \App\Models\Meetup */
     protected $meetup; // protected property, we don't want this in the template data
 
     public function __construct(Meetup $meetup)

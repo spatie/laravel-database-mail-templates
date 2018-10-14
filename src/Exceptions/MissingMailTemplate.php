@@ -11,6 +11,6 @@ class MissingMailTemplate extends Exception
     {
         $mailableClass = class_basename($mailable);
 
-        throw new static("No mail template exists for mailable `{$mailableClass}`.");
+        return new static("No mail template exists for mailable `{$mailableClass}`.");
     }
 }
