@@ -95,7 +95,9 @@ As you can see in the above example, you can use mustache template tags in both 
 Let's have a look at the corresponding mailable:
 
 ```php
-class WelcomeMail extends \Spatie\MailTemplates\TemplateMailable
+use TemplateMailable;
+
+class WelcomeMail extends TemplateMailable
 {
     /** @var string */
     public $name;
@@ -154,7 +156,9 @@ On top of the default `mailable` where-clause we've added a `meetup_group_id` wh
 Next, let's have a look at what our `NewMeetupPlannedMail` might look like:
 
 ```php
-class NewMeetupPlannedMail extends \Spatie\MailTemplates\TemplateMailable
+use Spatie\MailTemplates\TemplateMailable;
+
+class NewMeetupPlannedMail extends TemplateMailable
 {
     // use our custom mail template model
     protected static $templateModel = MeetupMailTemplate::class;
@@ -206,7 +210,9 @@ When sending a `TemplateMailable` the compiled template will be rendered inside 
 The following example will send a `WelcomeMail` using a template wrapped in a layout.
 
 ```php
-class WelcomeMail extends \Spatie\MailTemplates\TemplateMailable
+use Spatie\MailTemplates\TemplateMailable;
+
+class WelcomeMail extends TemplateMailable
 {
     // ...
     
@@ -249,7 +255,9 @@ You might for example want to use a different layout based on a mail template mo
 The following example uses a different layout based on what `EventMailTemplate` is being used. As you can see, in this case the layout is stored in the database on a related `Event` model.
 
 ```php
-class EventMailTemplate extends \Spatie\MailTemplates\MailTemplate
+use Spatie\MailTemplates\MailTemplate;
+
+class EventMailTemplate extends MailTemplate
 {
     public function event(): BelongsTo
     {
@@ -270,7 +278,9 @@ Out of the box this package doesn't support multi-langual templates. However, it
 Simply install the laravel-translatable package, publish the `create_mail_template_table` migration, change its `text` columns to `json` and extend the `MailTemplate` model like this:
 
 ```php
-class MailTemplate extends \Spatie\MailTemplates\MailTemplate
+use \Spatie\MailTemplates\MailTemplate;
+
+class MailTemplate extends MailTemplate
 {
     use HasTranslations;
     
