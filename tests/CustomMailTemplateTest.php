@@ -3,8 +3,8 @@
 namespace Spatie\MailTemplates\Tests;
 
 use Spatie\MailTemplates\Tests\stubs\Mails\BasicMail;
-use Spatie\MailTemplates\Tests\stubs\Mails\CustomTemplateModelMail;
 use Spatie\MailTemplates\Tests\stubs\Models\CustomMailTemplate;
+use Spatie\MailTemplates\Tests\stubs\Mails\CustomTemplateModelMail;
 
 class CustomMailTemplateTest extends TestCase
 {
