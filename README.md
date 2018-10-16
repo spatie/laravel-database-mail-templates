@@ -57,13 +57,15 @@ You can install the package via composer:
 composer require spatie/laravel-database-mail-templates
 ```
 
-If you want to use the [default `MailTemplate` model](#default-mailtemplate-model), all that's left to do is run `php artisan migrate` to create the `mail_templates` table. There's no need to publish the migration. 
-
-If you plan on creating a [custom `MailTemplate` model](#custom-mailtemplate-model) continue by publishing the migration:
+Publish and run the database migrations:
 
 ```bash
 php artisan vendor:publish --provider="Spatie\MailTemplates\MailTemplatesServiceProvider" --tag="migrations"
 ```
+
+If you want to use the [default `MailTemplate` model](#default-mailtemplate-model), all that's left to do is run `php artisan migrate` to create the `mail_templates` table. 
+
+If you plan on creating a [custom `MailTemplate` model](#custom-mailtemplate-model) continue by modifying the migration and creating your custom model before running `php artisan migrate`.
 
 ## Usage
 
