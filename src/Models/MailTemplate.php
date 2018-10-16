@@ -36,6 +36,10 @@ class MailTemplate extends Model
     {
         $mailableClass = $this->mailable;
 
+        if (! $mailableClass) {
+            return [];
+        }
+
         return $mailableClass::getVariables();
     }
 
