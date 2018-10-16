@@ -58,11 +58,11 @@ class TemplateMailableRenderer
 
     protected function guardAgainstInvalidLayout(string $layout)
     {
-        if (!str_contains($layout, [
+        if (! str_contains($layout, [
             '{{{body}}}',
             '{{{ body }}}',
             '{{body}}',
-            '{{ body }}'
+            '{{ body }}',
         ])) {
             throw CannotRenderTemplateMailable::layoutDoesNotContainABodyPlaceHolder($this->templateMailable, $this->mailTemplate, $layout);
         }

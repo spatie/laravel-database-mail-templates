@@ -2,9 +2,8 @@
 
 namespace Spatie\MailTemplates\Tests;
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 use Spatie\MailTemplates\Models\MailTemplate;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Spatie\MailTemplates\MailTemplatesServiceProvider;
