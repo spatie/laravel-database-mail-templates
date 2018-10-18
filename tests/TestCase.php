@@ -26,7 +26,7 @@ class TestCase extends OrchestraTestCase
 
     protected function setUpDatabase()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         Schema::create('custom_mail_templates', function (Blueprint $table) {
             $table->increments('id');
