@@ -36,7 +36,7 @@ class MailTemplate extends Model
     {
         $mailableClass = $this->mailable;
 
-        if (! $mailableClass) {
+        if (! class_exists($mailableClass)) {
             return [];
         }
 

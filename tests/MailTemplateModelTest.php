@@ -33,6 +33,16 @@ class MailTemplateModelTest extends TestCase
     }
 
     /** @test */
+    public function it_gets_an_empty_template_variable_array_for_a_mail_template_with_a_missing_mailable()
+    {
+        $mailTemplate = $this->createMailTemplateForMailable('\Non\Existent\Mailable');
+
+        $variables = $mailTemplate->getVariables();
+
+        $this->assertEquals([], $variables);
+    }
+
+    /** @test */
     public function it_can_render_a_mail_template_with_a_layout()
     {
         LayoutMailTemplate::create([
