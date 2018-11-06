@@ -56,7 +56,7 @@ class TemplateMailableRenderer
 
     protected function guardAgainstInvalidLayout(string $layout): void
     {
-        if ( ! str_contains($layout, [
+        if (! str_contains($layout, [
             '{{{body}}}',
             '{{{ body }}}',
             '{{body}}',
