@@ -6,8 +6,9 @@ use Illuminate\Contracts\Mail\Mailable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\MailTemplates\Exceptions\MissingMailTemplate;
+use Spatie\MailTemplates\Interfaces\MailTemplateInterface;
 
-class MailTemplate extends Model
+class MailTemplate extends Model implements MailTemplateInterface
 {
     protected $guarded = [];
 
@@ -46,5 +47,15 @@ class MailTemplate extends Model
     public function getVariablesAttribute(): array
     {
         return $this->getVariables();
+    }
+
+    public function subject(): string
+    {
+        return $this->subject;
+    }
+
+    public function template(): string
+    {
+        return $this->template;
     }
 }

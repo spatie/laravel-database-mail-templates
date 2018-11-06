@@ -28,7 +28,7 @@ class BasicMail extends TemplateMailable
 
     public function useTemplateModel(string $templateModel): self
     {
-        static::$templateModel = $templateModel;
+        static::$templateModelClass = $templateModel;
 
         return $this;
     }

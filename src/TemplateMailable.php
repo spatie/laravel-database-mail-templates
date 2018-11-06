@@ -8,19 +8,28 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\HtmlString;
 use Spatie\MailTemplates\Models\MailTemplate;
+use Spatie\MailTemplates\Interfaces\MailTemplateInterface;
 
 abstract class TemplateMailable extends Mailable
 {
-    protected static $templateModel = MailTemplate::class;
+    protected static $templateModelClass = MailTemplate::class;
+
+    /** @var MailTemplateInterface */
+    protected $mailTemplate;
 
     public static function getVariables(): array
     {
         return static::getPublicProperties();
     }
 
-    public function getTemplateModel(): string
+    public function getMailTemplate(): MailTemplateInterface
     {
-        return static::$templateModel;
+        return $this->mailTemplate ?? $this->resolveTemplateModel();
+    }
+
+    protected function resolveTemplateModel(): MailTemplateInterface
+    {
+        return $this->mailTemplate = static::$templateModelClass::findForMailable($this);
     }
 
     protected function buildView()
@@ -45,7 +54,7 @@ abstract class TemplateMailable extends Mailable
             return $this;
         }
 
-        if (MailTemplate::findForMailable($this)->subject) {
+        if ($this->getMailTemplate()->subject()) {
             $subject = $this
                 ->getMailTemplateRenderer()
                 ->renderSubject($this->buildViewData());

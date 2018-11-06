@@ -10,7 +10,7 @@ class TemplateMailableRenderer
     /** @var \Spatie\MailTemplates\TemplateMailable */
     protected $templateMailable;
 
-    /** @var \Spatie\MailTemplates\Models\MailTemplate */
+    /** @var \Spatie\MailTemplates\Interfaces\MailTemplateInterface */
     protected $mailTemplate;
 
     /** @var \Mustache_Engine */
@@ -20,15 +20,13 @@ class TemplateMailableRenderer
     {
         $this->templateMailable = $templateMailable;
         $this->mustache = $mustache;
-
-        $templateModel = $this->templateMailable->getTemplateModel();
-        $this->mailTemplate = $templateModel::findForMailable($templateMailable);
+        $this->mailTemplate = $templateMailable->getMailTemplate();
     }
 
     public function render(array $data = []): string
     {
         $html = $this->mustache->render(
-            $this->mailTemplate->template,
+            $this->mailTemplate->template(),
             $data
         );
 
@@ -38,7 +36,7 @@ class TemplateMailableRenderer
     public function renderSubject(array $data = []): string
     {
         return $this->mustache->render(
-            $this->mailTemplate->subject,
+            $this->mailTemplate->subject(),
             $data
         );
     }
@@ -56,15 +54,15 @@ class TemplateMailableRenderer
         return $this->mustache->render($layout, $data);
     }
 
-    protected function guardAgainstInvalidLayout(string $layout)
+    protected function guardAgainstInvalidLayout(string $layout): void
     {
-        if (! str_contains($layout, [
+        if ( ! str_contains($layout, [
             '{{{body}}}',
             '{{{ body }}}',
             '{{body}}',
             '{{ body }}',
         ])) {
-            throw CannotRenderTemplateMailable::layoutDoesNotContainABodyPlaceHolder($this->templateMailable, $this->mailTemplate, $layout);
+            throw CannotRenderTemplateMailable::layoutDoesNotContainABodyPlaceHolder($this->templateMailable);
         }
     }
 }
