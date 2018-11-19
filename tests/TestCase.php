@@ -24,6 +24,17 @@ class TestCase extends OrchestraTestCase
         ];
     }
 
+    protected function getEnvironmentSetUp($app)
+    {
+        parent::getEnvironmentSetUp($app);
+
+        // When running a single test via IDE like PHPStorm,
+        // settings in `phpunit.xml.dist` won't be applied.
+        // To ensure we can run a single test via IDE,
+        // we need set the default connection here.
+        $app['config']->set('database.default', 'testing');
+    }
+
     protected function setUpDatabase()
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
