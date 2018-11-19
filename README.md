@@ -71,7 +71,7 @@ If you plan on creating a [custom `MailTemplate` model](#custom-mailtemplate-mod
 
 After installing the package and running the migrations you'll have a new table in your database called `mail_templates`. This table will be used by the `MailTemplate` model.
 
-The default `MailTemplate` model has a `mailable` property that corresponds to the `Mailable`'s class name. It also has a `subject` and `body` property which are both used to store [mustache template](http://mustache.github.io/) strings.
+The default `MailTemplate` has a `mailable` property that corresponds to the `Mailable`'s class name. It also has a `subject` and `body` property which are both used to store [mustache template](http://mustache.github.io/) strings.
 
 You might want to set up a seeder that seeds your application's necessary templates:
 
@@ -119,7 +119,7 @@ By extending the `\Spatie\MailTemplates\TemplateMailable` class this mailable wi
 
 ### Customizing the `MailTemplate` model
 
-The default `MailTemplate` model is sufficient for using _one_ database mail template for _one_ mailable. If you want to use multiple mail templates for the same mailable _or_ extend the `MailTemplate` model, we highly encourage you to publish the `mail_template` migration and create your own mail template model by extending `MailTemplate`.
+The default `MailTemplate` model is sufficient for using _one_ database mail template for _one_ mailable. If you want to use multiple mail templates for the same mailable _or_ extend the `MailTemplate` model, we highly encourage you to publish the `mail_template` migration and create your own mail template model by extending `MailTemplate`. Make sure to imlement the `MailTemplateInterface` interface as well.
 
 Imagine an application like [meetup.com](https://meetup.com) that deals with different meetup groups. The application has a couple of different mailables like `NewMeetupPlannedMail` and `MeetupCancelledMail` to inform users of new meetups.
 Using this package we can create a `MeetupMailTemplate` for each meetup group. This way each group can add their own copy in the template. The `MeetupMailTemplate` model would look something like this:
@@ -127,7 +127,7 @@ Using this package we can create a `MeetupMailTemplate` for each meetup group. T
 ```php
 use Spatie\MailTemplates\MailTemplate;
 
-class MeetupMailTemplate extends MailTemplate
+class MeetupMailTemplate extends MailTemplate implements MailTemplateInterface
 {
     public function meetupGroup(): BelongsTo
     {
@@ -183,7 +183,7 @@ class NewMeetupPlannedMail extends TemplateMailable
         return $this->meetup->meetup_group_id;
     }  
 }
-```
+```en running a sing
 
 When sending a `NewMeetupPlannedMail` the right `MeetupMailTemplate` for the meetup group will be used with its own custom copy and mail layout. Pretty neat.
 
