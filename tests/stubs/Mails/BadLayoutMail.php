@@ -22,7 +22,7 @@ class BadLayoutMail extends TemplateMailable
         $this->email = $email;
     }
 
-    public function getLayout(): string
+    public function getHtmlLayout(): string
     {
         return '<main>no body!</main>';
     }
