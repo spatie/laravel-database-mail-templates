@@ -49,12 +49,12 @@ class MailTemplate extends Model implements MailTemplateInterface
         return $this->getVariables();
     }
 
-    public function subject(): string
+    public function getSubject(): string
     {
         return $this->subject;
     }
 
-    public function template(): string
+    public function getTemplate(): string
     {
         return $this->template;
     }

@@ -26,7 +26,7 @@ class TemplateMailableRenderer
     public function render(array $data = []): string
     {
         $html = $this->mustache->render(
-            $this->mailTemplate->template(),
+            $this->mailTemplate->getTemplate(),
             $data
         );
 
@@ -36,7 +36,7 @@ class TemplateMailableRenderer
     public function renderSubject(array $data = []): string
     {
         return $this->mustache->render(
-            $this->mailTemplate->subject(),
+            $this->mailTemplate->getSubject(),
             $data
         );
     }

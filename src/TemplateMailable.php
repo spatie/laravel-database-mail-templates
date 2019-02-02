@@ -54,7 +54,7 @@ abstract class TemplateMailable extends Mailable
             return $this;
         }
 
-        if ($this->getMailTemplate()->subject()) {
+        if ($this->getMailTemplate()->getSubject()) {
             $subject = $this
                 ->getMailTemplateRenderer()
                 ->renderSubject($this->buildViewData());
