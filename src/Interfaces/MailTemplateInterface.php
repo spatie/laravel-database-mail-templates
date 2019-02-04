@@ -9,19 +9,19 @@ interface MailTemplateInterface
      *
      * @return string
      */
-    public function subject(): string;
+    public function getSubject(): string;
 
     /**
      * Get the mail template.
      *
      * @return string
      */
-    public function htmlTemplate(): string;
+    public function getHtmlTemplate(): string;
 
     /**
      * Get the mail template.
      *
      * @return null|string
      */
-    public function textTemplate(): ?string;
+    public function getTextTemplate(): ?string;
 }

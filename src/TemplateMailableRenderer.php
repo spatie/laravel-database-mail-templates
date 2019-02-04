@@ -29,7 +29,7 @@ class TemplateMailableRenderer
     public function renderHtmlLayout(array $data = []): string
     {
         $body = $this->mustache->render(
-            $this->mailTemplate->htmlTemplate(),
+            $this->mailTemplate->getHtmlTemplate(),
             $data
         );
 
@@ -38,12 +38,12 @@ class TemplateMailableRenderer
 
     public function renderTextLayout(array $data = []): ?string
     {
-        if (! $this->mailTemplate->textTemplate()) {
+        if (! $this->mailTemplate->getTextTemplate()) {
             return $this->textView ?? null;
         }
 
         $body = $this->mustache->render(
-            $this->mailTemplate->textTemplate(),
+            $this->mailTemplate->getTextTemplate(),
             $data
         );
 
@@ -53,7 +53,7 @@ class TemplateMailableRenderer
     public function renderSubject(array $data = []): string
     {
         return $this->mustache->render(
-            $this->mailTemplate->subject(),
+            $this->mailTemplate->getSubject(),
             $data
         );
     }
