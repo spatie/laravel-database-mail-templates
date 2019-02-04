@@ -25,7 +25,7 @@ class WelcomeMail extends TemplateMailable
         $this->name = $user->name;
     }
     
-    public function getLayout(): string
+    public function getHtmlLayout(): string
     {
         $pathToLayout = storage_path('mail-layouts/main.html');
     
@@ -141,7 +141,7 @@ class MeetupMailTemplate extends MailTemplate implements MailTemplateInterface
             ->where('meetup_group_id', $mailable->getMeetupGroupId());
     }
     
-    public function getLayout(): string
+    public function getHtmlLayout(): string
     {
         return $this->meetupGroup->mail_layout;
     }
@@ -150,7 +150,7 @@ class MeetupMailTemplate extends MailTemplate implements MailTemplateInterface
 
 `MeetupMailTemplate` extends the package's `MailTemplate` and overrides a couple of methods. We've also added the relationship to the `MeetupGroup` that this mail template belongs to.
 
-By extending the `getLayout()` method we can provide the group's custom mail header and footer. [Read more about adding a header and footer to a mail template.](#adding-a-header-and-footer-around-a-mail-template) 
+By extending the `getHtmlLayout()` method we can provide the group's custom mail header and footer. [Read more about adding a header and footer to a mail template.](#adding-a-header-and-footer-around-a-mail-template) 
 
 We've also extended the `scopeForMailable()` method which is used to fetch the corresponding mail template from the database. 
 On top of the default `mailable` where-clause we've added a `meetup_group_id` where-clause that'll query for the mailable's `meeting_group_id`.
@@ -205,7 +205,7 @@ MailTemplate::create(['mailable' => WelcomeMail::class, ... ])->variables;
 
 ### Adding a header and footer around a mail template
 
-You can extend the `getLayout()` method on either a template mailable or a mail template. `getLayout()` should return a string layout containing the `{{{ body }}}` placeholder. 
+You can extend the `getHtmlLayout()` method on either a template mailable or a mail template. `getHtmlLayout()` should return a string layout containing the `{{{ body }}}` placeholder. 
 
 When sending a `TemplateMailable` the compiled template will be rendered inside of the `{{{ body }}}` placeholder in the layout before being sent.
 
@@ -218,7 +218,7 @@ class WelcomeMail extends TemplateMailable
 {
     // ...
     
-    public function getLayout(): string
+    public function getHtmlLayout(): string
     {
         /**
          * In your application you might want to fetch the layout from an external file or Blade view.
@@ -250,9 +250,9 @@ The rendered HTML for the sent email will look like this:
 
 #### Adding a layout to a mail template model
 
-It is also possible to extend the `getLayout()` method of the `MailTemplate` model (instead of extending `getLayout()`on the mailable).
+It is also possible to extend the `getHtmlLayout()` method of the `MailTemplate` model (instead of extending `getHtmlLayout()`on the mailable).
 
-You might for example want to use a different layout based on a mail template model property. This can be done by adding the `getLayout()` method on your custom `MailTemplate` model instead. 
+You might for example want to use a different layout based on a mail template model property. This can be done by adding the `getHtmlLayout()` method on your custom `MailTemplate` model instead. 
 
 The following example uses a different layout based on what `EventMailTemplate` is being used. As you can see, in this case the layout is stored in the database on a related `Event` model.
 
@@ -266,7 +266,7 @@ class EventMailTemplate extends MailTemplate
         return $this->belongsTo(Event::class);
     }
 
-    public function getLayout(): string
+    public function getHtmlLayout(): string
     {
         return $this->event->mail_layout_html;
     }
