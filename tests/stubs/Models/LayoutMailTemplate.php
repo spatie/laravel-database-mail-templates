@@ -8,7 +8,7 @@ class LayoutMailTemplate extends MailTemplate
 {
     protected $table = 'mail_templates';
 
-    public function getLayout(): string
+    public function getHtmlLayout(): string
     {
         return '<main>{{{ body }}}</main>';
     }

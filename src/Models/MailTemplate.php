@@ -28,7 +28,12 @@ class MailTemplate extends Model implements MailTemplateInterface
         return $mailTemplate;
     }
 
-    public function getLayout(): ?string
+    public function getHtmlLayout(): ?string
+    {
+        return null;
+    }
+
+    public function getTextLayout(): ?string
     {
         return null;
     }
@@ -54,7 +59,12 @@ class MailTemplate extends Model implements MailTemplateInterface
         return $this->subject;
     }
 
-    public function template(): string
+    public function htmlTemplate(): string
+    {
+        return $this->template;
+    }
+
+    public function textTemplate(): string
     {
         return $this->template;
     }

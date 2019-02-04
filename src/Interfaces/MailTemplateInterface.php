@@ -14,5 +14,11 @@ interface MailTemplateInterface
      * Get the mail template.
      * @return string
      */
-    public function template(): string;
+    public function htmlTemplate(): string;
+
+    /**
+     * Get the mail template.
+     * @return string
+     */
+    public function textTemplate(): string;
 }

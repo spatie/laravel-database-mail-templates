@@ -22,7 +22,7 @@ class LayoutMail extends TemplateMailable
         $this->email = $email;
     }
 
-    public function getLayout(): string
+    public function getHtmlLayout(): string
     {
         return '<main>{{{ body }}}</main>';
     }
