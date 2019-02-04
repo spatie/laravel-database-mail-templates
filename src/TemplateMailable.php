@@ -38,11 +38,12 @@ abstract class TemplateMailable extends Mailable
 
         $viewData = $this->buildViewData();
 
-        $html = $renderer->render($viewData);
+        $html = $renderer->renderHtmlLayout($viewData);
+        $text = $renderer->renderTextLayout($viewData);
 
         return array_filter([
             'html' => new HtmlString($html),
-            'text' => $this->textView ?? null,
+            'text' => new HtmlString($text),
         ]);
     }
 
@@ -67,7 +68,12 @@ abstract class TemplateMailable extends Mailable
         return parent::buildSubject($message);
     }
 
-    public function getLayout(): ?string
+    public function getHtmlLayout(): ?string
+    {
+        return null;
+    }
+
+    public function getTextLayout(): ?string
     {
         return null;
     }

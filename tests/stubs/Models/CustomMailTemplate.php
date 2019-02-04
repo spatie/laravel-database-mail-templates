@@ -10,7 +10,7 @@ class CustomMailTemplate extends MailTemplate
 {
     protected $table = 'custom_mail_templates';
 
-    public function getLayout(): string
+    public function getHtmlLayout(): string
     {
         return '<main>{{{ body }}}</main>';
     }

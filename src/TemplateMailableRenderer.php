@@ -7,6 +7,9 @@ use Spatie\MailTemplates\Exceptions\CannotRenderTemplateMailable;
 
 class TemplateMailableRenderer
 {
+    public const RENDER_HTML_LAYOUT = 0;
+    public const RENDER_TEXT_LAYOUT = 1;
+
     /** @var \Spatie\MailTemplates\TemplateMailable */
     protected $templateMailable;
 
@@ -23,14 +26,28 @@ class TemplateMailableRenderer
         $this->mailTemplate = $templateMailable->getMailTemplate();
     }
 
-    public function render(array $data = []): string
+    public function renderHtmlLayout(array $data = []): string
     {
-        $html = $this->mustache->render(
-            $this->mailTemplate->getTemplate(),
+        $body = $this->mustache->render(
+            $this->mailTemplate->getHtmlTemplate(),
             $data
         );
 
-        return $this->renderInLayout($html, $data);
+        return $this->renderInLayout($body, static::RENDER_HTML_LAYOUT, $data);
+    }
+
+    public function renderTextLayout(array $data = []): ?string
+    {
+        if (! $this->mailTemplate->getTextTemplate()) {
+            return $this->textView ?? null;
+        }
+
+        $body = $this->mustache->render(
+            $this->mailTemplate->getTextTemplate(),
+            $data
+        );
+
+        return $this->renderInLayout($body, static::RENDER_TEXT_LAYOUT, $data);
     }
 
     public function renderSubject(array $data = []): string
@@ -41,15 +58,16 @@ class TemplateMailableRenderer
         );
     }
 
-    protected function renderInLayout(string $html, array $data = []): string
+    protected function renderInLayout(string $body, int $layoutType, array $data = []): string
     {
-        $layout = $this->templateMailable->getLayout()
-            ?? $this->mailTemplate->getLayout()
+        $method = $layoutType === static::RENDER_HTML_LAYOUT ? 'getHtmlLayout' : 'getTextLayout';
+        $layout = $this->templateMailable->$method()
+            ?? (method_exists($this->mailTemplate, $method) ? $this->mailTemplate->$method() : null)
             ?? '{{{ body }}}';
 
         $this->guardAgainstInvalidLayout($layout);
 
-        $data = array_merge(['body' => $html], $data);
+        $data = array_merge(['body' => $body], $data);
 
         return $this->mustache->render($layout, $data);
     }
