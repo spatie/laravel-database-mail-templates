@@ -36,8 +36,12 @@ class TemplateMailableRenderer
         return $this->renderInLayout($body, static::RENDER_HTML_LAYOUT, $data);
     }
 
-    public function renderTextLayout(array $data = []): string
+    public function renderTextLayout(array $data = []): ?string
     {
+        if (! $this->mailTemplate->textTemplate()) {
+            return $this->textView ?? null;
+        }
+
         $body = $this->mustache->render(
             $this->mailTemplate->textTemplate(),
             $data
