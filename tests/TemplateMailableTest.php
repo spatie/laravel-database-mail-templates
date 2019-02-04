@@ -16,7 +16,7 @@ class TemplateMailableTest extends TestCase
     {
         MailTemplate::create([
             'mailable' => BasicMail::class,
-            'template' => 'Hello, {{ name }}',
+            'html_template' => 'Hello, {{ name }}',
         ]);
 
         $renderedMail = (new BasicMail('John'))->render();

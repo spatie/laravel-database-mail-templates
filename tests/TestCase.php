@@ -32,7 +32,8 @@ class TestCase extends OrchestraTestCase
             $table->increments('id');
             $table->string('mailable');
             $table->text('subject')->nullable();
-            $table->text('template');
+            $table->text('html_template');
+            $table->text('text_template')->nullable();
             $table->boolean('use')->default(false);
             $table->timestamps();
         });
@@ -47,7 +48,7 @@ class TestCase extends OrchestraTestCase
 
         return $mailTemplate::create(array_merge([
             'mailable' => $mailable,
-            'template' => 'Hello, {{ name }}',
+            'html_template' => 'Hello, {{ name }}',
         ], $attributes));
     }
 }

@@ -47,7 +47,7 @@ class MailTemplateModelTest extends TestCase
     {
         LayoutMailTemplate::create([
             'mailable' => BasicMail::class,
-            'template' => 'Hello, {{ name }}',
+            'html_template' => 'Hello, {{ name }}',
         ]);
 
         $renderedMail = (new BasicMail('John'))->useTemplateModel(LayoutMailTemplate::class)->render();

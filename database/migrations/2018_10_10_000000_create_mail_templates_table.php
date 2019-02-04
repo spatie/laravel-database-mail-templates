@@ -12,7 +12,8 @@ class CreateMailTemplatesTable extends Migration
             $table->increments('id');
             $table->string('mailable');
             $table->text('subject')->nullable();
-            $table->text('template');
+            $table->text('html_template');
+            $table->text('text_template')->nullable();
             $table->timestamps();
         });
     }

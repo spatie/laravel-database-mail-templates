@@ -234,7 +234,7 @@ class WelcomeMail extends TemplateMailable
 
 MailTemplate::create([
     'mailable' => WelcomeMail::class,
-    'template' => '<p>Welcome, {{ name }}!</p>', 
+    'html_template' => '<p>Welcome, {{ name }}!</p>', 
 ]);
 
 Mail::to($user->email)->send(new WelcomeMail($user));
@@ -286,7 +286,7 @@ class MailTemplate extends MailTemplate
 {
     use HasTranslations;
     
-    public $translatable = ['subject', 'template'];
+    public $translatable = ['subject', 'html_template'];
 }
 ```
 

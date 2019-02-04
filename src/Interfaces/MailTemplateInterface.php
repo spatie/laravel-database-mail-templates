@@ -2,8 +2,12 @@
 
 namespace Spatie\MailTemplates\Interfaces;
 
+use Illuminate\Contracts\Mail\Mailable;
+
 interface MailTemplateInterface
 {
+    public static function findForMailable(Mailable $mailable);
+
     /**
      * Get the mail subject.
      *

@@ -64,7 +64,7 @@ class MailTemplate extends Model implements MailTemplateInterface
         return $this->html_template;
     }
 
-    public function getTextTemplate(): string
+    public function getTextTemplate(): ?string
     {
         return $this->text_template;
     }
