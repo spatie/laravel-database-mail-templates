@@ -184,8 +184,6 @@ class NewMeetupPlannedMail extends TemplateMailable
     }  
 }
 ```
-en running a sing
-
 When sending a `NewMeetupPlannedMail` the right `MeetupMailTemplate` for the meetup group will be used with its own custom copy and mail layout. Pretty neat.
 
 ### Template variables
