@@ -183,7 +183,8 @@ class NewMeetupPlannedMail extends TemplateMailable
         return $this->meetup->meetup_group_id;
     }  
 }
-```en running a sing
+```
+en running a sing
 
 When sending a `NewMeetupPlannedMail` the right `MeetupMailTemplate` for the meetup group will be used with its own custom copy and mail layout. Pretty neat.
 
