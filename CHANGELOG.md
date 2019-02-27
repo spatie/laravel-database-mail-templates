@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-database-mail-templates` will be documented in this file
 
+# 3.0.1 - 2019-02-27
+
+- Add support for Laravel 5.8
+
 # 3.0.0 - 2019-02-04
 
 - Add support for text mails (#10)

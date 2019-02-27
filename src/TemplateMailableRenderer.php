@@ -2,6 +2,7 @@
 
 namespace Spatie\MailTemplates;
 
+use Illuminate\Support\Str;
 use Mustache_Engine;
 use Spatie\MailTemplates\Exceptions\CannotRenderTemplateMailable;
 
@@ -74,7 +75,7 @@ class TemplateMailableRenderer
 
     protected function guardAgainstInvalidLayout(string $layout): void
     {
-        if (! str_contains($layout, [
+        if (! Str::contains($layout, [
             '{{{body}}}',
             '{{{ body }}}',
             '{{body}}',
