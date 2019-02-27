@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-database-mail-templates` will be documented in this file
 
+# 3.1.0 - 2019-02-27
+
+- Drop support for Laravel 5.7 and lower
+- Drop support for PHP 7.1 and lower
+
 # 3.0.1 - 2019-02-27
 
 - Add support for Laravel 5.8
