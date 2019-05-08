@@ -80,6 +80,8 @@ class TemplateMailableRenderer
             '{{{ body }}}',
             '{{body}}',
             '{{ body }}',
+            '{{ $body }}',
+            '{!! $body !!}',
         ])) {
             throw CannotRenderTemplateMailable::layoutDoesNotContainABodyPlaceHolder($this->templateMailable);
         }
