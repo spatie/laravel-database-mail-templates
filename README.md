@@ -35,7 +35,9 @@ class WelcomeMail extends TemplateMailable
 
 MailTemplate::create([
     'mailable' => WelcomeMail::class,
-    'body' => '<p>Hello, {{ name }}.</p>',
+    'subject' => 'Welcome, {{ name }}',
+    'html_template' => '<p>Hello, {{ name }}.</p>',
+    'text_template' => 'Hello, {{ name }}.'
 ]);
 
 Mail::to($user->email)->send(new WelcomeMail($user));
@@ -84,9 +86,10 @@ class MailTemplatesSeeder extends Seeder
     public function run()
     {
         MailTemplate::create([
-            'mailable' => \App\Mails\WelcomeUserMail::class,
+            'mailable' => \App\Mails\WelcomeMail::class,
             'subject' => 'Welcome, {{ name }}',
-            'body' => '<h1>Hello, {{ name }}!</h1>',
+            'html_template' => '<h1>Hello, {{ name }}!</h1>',
+            'text_template' => 'Hello, {{ name }}!',
         ]);
     }
 }
@@ -163,7 +166,7 @@ use Spatie\MailTemplates\TemplateMailable;
 class NewMeetupPlannedMail extends TemplateMailable
 {
     // use our custom mail template model
-    protected static $templateModel = MeetupMailTemplate::class;
+    protected static $templateModelClass = MeetupMailTemplate::class;
 
     /** @var string */
     public $location;
