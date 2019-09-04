@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-database-mail-templates` will be documented in this file
 
+## 3.2.0 - 2019-09-04
+
+- add support for Laravel 6.0
+
 ## 3.1.1 - 2019-05-09
 
 - allow html to be rendered in blade templates
