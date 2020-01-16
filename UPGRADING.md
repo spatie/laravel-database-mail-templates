@@ -12,3 +12,5 @@ The default migration that comes with this package has been updated. You can man
 If you're using a custom mail template model: the `MailTemplateInterface` has changed. 
 The `subject`, and `template` methods are replaced with `getSubject`, `getHtmlTemplate` and `getTextTemplate` to support text templates.
 This also avoids collisions if you're using Laravel Nova.
+
+If you're using a custom `TemplateMailable`: the `$templateModel` property has been renamed to `$templateModelClass`
