@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-database-mail-templates` will be documented in this file
 
+## 3.3.0 - 2020-03-03
+
+- add support for Laravel 7.0
+
 ## 3.2.0 - 2019-09-04
 
 - add support for Laravel 6.0
