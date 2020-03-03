@@ -22,7 +22,7 @@ jobs:
                 exclude:
                     # excludes prefer-lowest 5.8 test on php 7.4
                     -   laravel: 5.8
-                        testbench: 3.8
+                        php: 7.4
                         dependency-version: prefer-lowest
 
         name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
