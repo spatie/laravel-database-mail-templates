@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-database-mail-templates.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-database-mail-templates)
 ![Test Status](https://img.shields.io/github/workflow/status/spatie/laravel-database-mail-templates/run-tests?label=tests&style=flat-square)
-![PHP CS Fixer Status](https://img.shields.io/github/workflow/status/spatie/laravel-database-mail-templates/php-cs-fixer?label=code%20style&style=flat-square)
+![PHP CS Fixer Status](https://img.shields.io/github/workflow/status/spatie/laravel-database-mail-templates/php-cs-fixer?label=Check%20&%20fix%20styling&style=flat-square)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-database-mail-templates.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-database-mail-templates)
 
 Render Laravel mailables using a template stored in the database.
