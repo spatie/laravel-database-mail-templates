@@ -2,8 +2,8 @@
 
 namespace Spatie\MailTemplates;
 
-use Mustache_Engine;
 use Illuminate\Support\Str;
+use Mustache_Engine;
 use Spatie\MailTemplates\Exceptions\CannotRenderTemplateMailable;
 
 class TemplateMailableRenderer

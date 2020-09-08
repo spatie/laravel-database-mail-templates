@@ -2,11 +2,11 @@
 
 namespace Spatie\MailTemplates\Tests;
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-use Spatie\MailTemplates\Models\MailTemplate;
+use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Spatie\MailTemplates\MailTemplatesServiceProvider;
+use Spatie\MailTemplates\Models\MailTemplate;
 
 class TestCase extends OrchestraTestCase
 {

@@ -3,8 +3,8 @@
 namespace Spatie\MailTemplates\Models;
 
 use Illuminate\Contracts\Mail\Mailable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\MailTemplates\Exceptions\MissingMailTemplate;
 use Spatie\MailTemplates\Interfaces\MailTemplateInterface;
 

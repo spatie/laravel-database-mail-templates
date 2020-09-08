@@ -2,13 +2,13 @@
 
 namespace Spatie\MailTemplates;
 
-use ReflectionClass;
-use ReflectionProperty;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\HtmlString;
-use Spatie\MailTemplates\Models\MailTemplate;
+use ReflectionClass;
+use ReflectionProperty;
 use Spatie\MailTemplates\Interfaces\MailTemplateInterface;
+use Spatie\MailTemplates\Models\MailTemplate;
 
 abstract class TemplateMailable extends Mailable
 {

@@ -4,8 +4,8 @@ namespace Spatie\MailTemplates\Tests\stubs\Mails;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
-use Spatie\MailTemplates\TemplateMailable;
 use Spatie\MailTemplates\Models\MailTemplate;
+use Spatie\MailTemplates\TemplateMailable;
 
 class BasicMail extends TemplateMailable
 {
