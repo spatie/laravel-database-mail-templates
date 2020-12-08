@@ -5,6 +5,7 @@ namespace Spatie\MailTemplates\Tests;
 use Spatie\MailTemplates\Exceptions\CannotRenderTemplateMailable;
 use Spatie\MailTemplates\Exceptions\MissingMailTemplate;
 use Spatie\MailTemplates\Models\MailTemplate;
+use Spatie\MailTemplates\Models\MailTemplateType;
 use Spatie\MailTemplates\Tests\stubs\Mails\BadLayoutMail;
 use Spatie\MailTemplates\Tests\stubs\Mails\BasicMail;
 use Spatie\MailTemplates\Tests\stubs\Mails\LayoutMail;
@@ -14,9 +15,14 @@ class TemplateMailableTest extends TestCase
     /** @test */
     public function it_can_render_a_mailable()
     {
+        $type = MailTemplateType::create([
+            'name' => 'Basic'
+        ]);
+
         MailTemplate::create([
             'mailable' => BasicMail::class,
             'html_template' => 'Hello, {{ name }}',
+            'type_id' => $type->id
         ]);
 
         $renderedMail = (new BasicMail('John'))->render();

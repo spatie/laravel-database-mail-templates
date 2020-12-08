@@ -10,10 +10,14 @@ class CreateMailTemplatesTable extends Migration
     {
         Schema::create('mail_templates', function (Blueprint $table) {
             $table->increments('id');
+            $table->uuid('uuid');
             $table->string('mailable');
             $table->text('subject')->nullable();
             $table->text('html_template');
             $table->text('text_template')->nullable();
+            $table->string('code')->nullable();
+            $table->string('label')->nullable();
+            $table->foreignId('type_id')->constrained('mail_template_types')->cascadeOnUpdate();
             $table->timestamps();
         });
     }

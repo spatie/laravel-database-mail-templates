@@ -1,24 +1,20 @@
 {
-    "name": "spatie/laravel-database-mail-templates",
+    "name": "akkurateio/laravel-database-mail-templates",
     "description": "Render Laravel mailables using a template stored in the database.",
-    "keywords": [
-        "spatie",
-        "laravel-database-mail-templates"
-    ],
-    "homepage": "https://github.com/spatie/laravel-database-mail-templates",
     "license": "MIT",
     "authors": [
         {
-            "name": "Alex Vanderbist",
-            "email": "alex@spatie.be",
-            "homepage": "https://spatie.be",
-            "role": "Developer"
+            "name": "Akkurate",
+            "email": "hello@subvitamine.com",
+            "homepage": "https://www.akkurate.io",
+            "role": "Company"
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.4",
         "laravel/framework": "~5.8|^6.0|^7.0|^8.0",
-        "mustache/mustache": "^2.12"
+        "mustache/mustache": "^2.12",
+        "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {
         "ext-pdo_sqlite": "*",
@@ -28,7 +24,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\MailTemplates\\": "src"
+            "Spatie\\MailTemplates\\": "src",
+            "Spatie\\MailTemplates\\Database\\Seeders\\": "database/seeders"
         }
     },
     "autoload-dev": {

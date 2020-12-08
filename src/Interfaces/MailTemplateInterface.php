@@ -16,16 +16,30 @@ interface MailTemplateInterface
     public function getSubject(): string;
 
     /**
-     * Get the mail template.
+     * Get the HTML mail template.
      *
      * @return string
      */
     public function getHtmlTemplate(): string;
 
     /**
-     * Get the mail template.
+     * Get the text mail template.
      *
      * @return null|string
      */
     public function getTextTemplate(): ?string;
+
+    /**
+     * Get the code of the mail template.
+     *
+     * @return null|string
+     */
+    public function getCode(): ?string;
+
+    /**
+     * Get the label of the mail template.
+     *
+     * @return null|string
+     */
+    public function getLabel(): ?string;
 }

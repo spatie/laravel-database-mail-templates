@@ -111,4 +111,12 @@ abstract class TemplateMailable extends Mailable
     {
         return app(TemplateMailableRenderer::class, ['templateMailable' => $this]);
     }
+
+    public function getRenderedText(): string
+    {
+        $renderer = $this->getMailTemplateRenderer();
+        $viewData = $this->buildViewData();
+
+        return $renderer->renderTextLayout($viewData);
+    }
 }

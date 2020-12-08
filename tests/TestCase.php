@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Spatie\MailTemplates\MailTemplatesServiceProvider;
 use Spatie\MailTemplates\Models\MailTemplate;
+use Spatie\MailTemplates\Models\MailTemplateType;
 
 class TestCase extends OrchestraTestCase
 {
@@ -28,13 +29,24 @@ class TestCase extends OrchestraTestCase
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
+        Schema::create('custom_mail_template_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->uuid('uuid');
+            $table->string('name');
+            $table->timestamps();
+        });
+
         Schema::create('custom_mail_templates', function (Blueprint $table) {
             $table->increments('id');
+            $table->uuid('uuid');
             $table->string('mailable');
             $table->text('subject')->nullable();
             $table->text('html_template');
             $table->text('text_template')->nullable();
             $table->boolean('use')->default(false);
+            $table->string('code')->nullable();
+            $table->string('label')->nullable();
+            $table->foreignId('type_id')->constrained('mail_template_types');
             $table->timestamps();
         });
     }
@@ -46,9 +58,14 @@ class TestCase extends OrchestraTestCase
     ): MailTemplate {
         $mailTemplate = $mailTemplate ?? MailTemplate::class;
 
+        $type = MailTemplateType::create([
+            'name' => 'Basic'
+        ]);
+
         return $mailTemplate::create(array_merge([
             'mailable' => $mailable,
             'html_template' => 'Hello, {{ name }}',
+            'type_id' => $type->id
         ], $attributes));
     }
 }
