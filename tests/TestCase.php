@@ -29,14 +29,8 @@ class TestCase extends OrchestraTestCase
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-        Schema::create('custom_mail_template_types', function (Blueprint $table) {
-            $table->increments('id');
-            $table->uuid('uuid');
-            $table->string('name');
-            $table->timestamps();
-        });
-
         Schema::create('custom_mail_templates', function (Blueprint $table) {
+
             $table->increments('id');
             $table->uuid('uuid');
             $table->string('mailable');
@@ -46,7 +40,13 @@ class TestCase extends OrchestraTestCase
             $table->boolean('use')->default(false);
             $table->string('code')->nullable();
             $table->string('label')->nullable();
-            $table->foreignId('type_id')->constrained('mail_template_types');
+
+            $table->unsignedInteger('type_id');
+            $table->foreign('type_id')
+                ->references('id')
+                ->on('mail_template_types')
+                ->onUpdate('cascade');
+
             $table->timestamps();
         });
     }
