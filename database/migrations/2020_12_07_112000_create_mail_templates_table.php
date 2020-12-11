@@ -17,7 +17,13 @@ class CreateMailTemplatesTable extends Migration
             $table->text('text_template')->nullable();
             $table->string('code')->nullable();
             $table->string('label')->nullable();
-            $table->foreignId('type_id')->constrained('mail_template_types')->cascadeOnUpdate();
+            
+            $table->unsignedBigInteger('type_id');
+            $table->foreign('type_id')
+                ->references('id')
+                ->on('mail_template_types')
+                ->onUpdate('cascade');
+            
             $table->timestamps();
         });
     }
