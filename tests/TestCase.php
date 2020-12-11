@@ -30,7 +30,6 @@ class TestCase extends OrchestraTestCase
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         Schema::create('custom_mail_templates', function (Blueprint $table) {
-
             $table->increments('id');
             $table->uuid('uuid');
             $table->string('mailable');
