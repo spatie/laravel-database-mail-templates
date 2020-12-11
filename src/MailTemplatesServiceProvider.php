@@ -30,7 +30,8 @@ class MailTemplatesServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/laravel-mail-templates.php', 'laravel-mail-templates'
+            __DIR__.'/../config/laravel-mail-templates.php',
+            'laravel-mail-templates'
         );
     }
 }

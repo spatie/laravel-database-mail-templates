@@ -59,13 +59,13 @@ class TestCase extends OrchestraTestCase
         $mailTemplate = $mailTemplate ?? MailTemplate::class;
 
         $type = MailTemplateType::create([
-            'name' => 'Basic'
+            'name' => 'Basic',
         ]);
 
         return $mailTemplate::create(array_merge([
             'mailable' => $mailable,
             'html_template' => 'Hello, {{ name }}',
-            'type_id' => $type->id
+            'type_id' => $type->id,
         ], $attributes));
     }
 }

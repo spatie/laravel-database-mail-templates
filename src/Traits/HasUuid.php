@@ -7,7 +7,8 @@ use Webpatser\Uuid\Uuid;
 /**
  * Trait HasUuid
  */
-trait HasUuid {
+trait HasUuid
+{
 
     /**
      *  Setup model event hooks
@@ -26,7 +27,7 @@ trait HasUuid {
         if (! empty($this->uuidFieldName)) {
             return $this->uuidFieldName;
         }
+
         return 'uuid';
     }
-
 }

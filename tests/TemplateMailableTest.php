@@ -16,13 +16,13 @@ class TemplateMailableTest extends TestCase
     public function it_can_render_a_mailable()
     {
         $type = MailTemplateType::create([
-            'name' => 'Basic'
+            'name' => 'Basic',
         ]);
 
         MailTemplate::create([
             'mailable' => BasicMail::class,
             'html_template' => 'Hello, {{ name }}',
-            'type_id' => $type->id
+            'type_id' => $type->id,
         ]);
 
         $renderedMail = (new BasicMail('John'))->render();
