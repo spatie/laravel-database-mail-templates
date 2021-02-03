@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-database-mail-templates` will be documented in this file
 
+## 3.4.2 - 2020-02-03
+
+- add support for PHP 8
+
 ## 3.4.1 - 2020-12-15
 
 - use `longText` columns by default (#34)
