@@ -86,7 +86,6 @@ You might want to set up a seeder that seeds your application's necessary templa
 
 ```php
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class MailTemplatesSeeder extends Seeder
 {
