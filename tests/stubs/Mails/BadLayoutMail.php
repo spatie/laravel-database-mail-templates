@@ -8,7 +8,8 @@ use Spatie\MailTemplates\TemplateMailable;
 
 class BadLayoutMail extends TemplateMailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     /** @var string */
     public $name;

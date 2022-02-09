@@ -9,7 +9,8 @@ use Spatie\MailTemplates\TemplateMailable;
 
 class BasicMail extends TemplateMailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     /** @var string */
     public $name;

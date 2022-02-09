@@ -9,7 +9,8 @@ use Spatie\MailTemplates\Tests\stubs\Models\CustomMailTemplate;
 
 class CustomTemplateModelMail extends TemplateMailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     protected static $templateModel = CustomMailTemplate::class;
 
