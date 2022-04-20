@@ -137,7 +137,7 @@ Imagine an application like [meetup.com](https://meetup.com) that deals with dif
 Using this package we can create a `MeetupMailTemplate` for each meetup group. This way each group can add their own copy in the template. The `MeetupMailTemplate` model would look something like this:
 
 ```php
-use Spatie\MailTemplates\MailTemplate;
+use Spatie\MailTemplates\Models\MailTemplate;
 
 class MeetupMailTemplate extends MailTemplate implements MailTemplateInterface
 {
