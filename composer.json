@@ -49,5 +49,7 @@
                 "Spatie\\MailTemplates\\MailTemplatesServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
