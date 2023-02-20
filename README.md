@@ -23,6 +23,8 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 The following example will send a `WelcomeMail` using a template stored in the database and wrapped in an HTML layout.
 
 ```php
+namespace App\Mail;
+
 use Spatie\MailTemplates\TemplateMailable;
 
 class WelcomeMail extends TemplateMailable
@@ -44,7 +46,7 @@ class WelcomeMail extends TemplateMailable
 }
 
 MailTemplate::create([
-    'mailable' => WelcomeMail::class,
+    'mailable' => \App\Mail\WelcomeMail::class,
     'subject' => 'Welcome, {{ name }}',
     'html_template' => '<p>Hello, {{ name }}.</p>',
     'text_template' => 'Hello, {{ name }}.'
@@ -95,7 +97,7 @@ class MailTemplatesSeeder extends Seeder
     public function run()
     {
         MailTemplate::create([
-            'mailable' => \App\Mails\WelcomeMail::class,
+            'mailable' => \App\Mail\WelcomeMail::class,
             'subject' => 'Welcome, {{ name }}',
             'html_template' => '<h1>Hello, {{ name }}!</h1>',
             'text_template' => 'Hello, {{ name }}!',
@@ -109,6 +111,8 @@ As you can see in the above example, you can use mustache template tags in both 
 Let's have a look at the corresponding mailable:
 
 ```php
+namespace App\Mail;
+
 use TemplateMailable;
 
 class WelcomeMail extends TemplateMailable
