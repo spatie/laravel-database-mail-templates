@@ -272,7 +272,7 @@ You might for example want to use a different layout based on a mail template mo
 The following example uses a different layout based on what `EventMailTemplate` is being used. As you can see, in this case the layout is stored in the database on a related `Event` model.
 
 ```php
-use Spatie\MailTemplates\MailTemplate;
+use Spatie\MailTemplates\Models\MailTemplate;
 
 class EventMailTemplate extends MailTemplate
 {
