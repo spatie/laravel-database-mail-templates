@@ -221,6 +221,8 @@ You can extend the `getHtmlLayout()` method on either a template mailable or a m
 
 When sending a `TemplateMailable` the compiled template will be rendered inside of the `{{{ body }}}` placeholder in the layout before being sent.
 
+If using a Blade view, the placeholder will need to be `@{{{ body }}}`.
+
 The following example will send a `WelcomeMail` using a template wrapped in a layout.
 
 ```php
