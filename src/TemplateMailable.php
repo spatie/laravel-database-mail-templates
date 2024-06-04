@@ -17,6 +17,9 @@ abstract class TemplateMailable extends Mailable
     /** @var MailTemplateInterface */
     protected $mailTemplate;
 
+    /** @var array */
+    protected $additionalData;
+
     public static function getVariables(): array
     {
         return static::getPublicProperties();
@@ -110,5 +113,18 @@ abstract class TemplateMailable extends Mailable
     protected function getMailTemplateRenderer(): TemplateMailableRenderer
     {
         return app(TemplateMailableRenderer::class, ['templateMailable' => $this]);
+    }
+
+    public function buildViewData(): array
+    {
+        $mailablePropeties = parent::buildViewData();
+        if(is_null($this->additionalData)) {
+            return $mailablePropeties;
+        }
+        return array_merge($mailablePropeties, $this->additionalData);
+    }
+
+    public function setAdditionalData($array) {
+        $this->additionalData = $array;
     }
 }
