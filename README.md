@@ -130,6 +130,26 @@ class WelcomeMail extends TemplateMailable
 
 By extending the `\Spatie\MailTemplates\TemplateMailable` class this mailable will be rendered using the corresponding `MailTemplate`. All public properties on the `WelcomeMail` will be available in the template.
 
+If you need to use properties within your template that are initially defined within your `WelcomeMail` (for example, data that comes from another source). You can call `$this->setAdditionalData()` and pass it an array of you additional key => value pairs.
+
+An example of this would be:
+```php
+namespace App\Mail;
+
+use TemplateMailable;
+
+class WelcomeMail extends TemplateMailable
+{
+
+    public function __construct(User $user)
+    {
+        $this->setAdditionalData([
+            'name' => 'Joe Bloggs'
+        ]);
+    }
+}
+```
+
 ### Customizing the `MailTemplate` model
 
 The default `MailTemplate` model is sufficient for using _one_ database mail template for _one_ mailable. If you want to use multiple mail templates for the same mailable _or_ extend the `MailTemplate` model, we highly encourage you to publish the `mail_template` migration and create your own mail template model by extending `MailTemplate`. Make sure to implement the `MailTemplateInterface` interface as well.
