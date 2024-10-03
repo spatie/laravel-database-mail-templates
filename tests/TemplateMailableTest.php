@@ -59,4 +59,20 @@ class TemplateMailableTest extends TestCase
 
         (new BasicMail('John'))->render();
     }
+
+    /** @test */
+    public function it_can_set_additional_data()
+    {
+        MailTemplate::create([
+            'mailable' => BasicMail::class,
+            'html_template' => 'Hello, {{ name }}. Your role is {{ role }}.',
+        ]);
+
+        $mailable = new BasicMail('John');
+        $mailable->setAdditionalData(['role' => 'admin']);
+
+        $renderedMail = $mailable->render();
+
+        $this->assertEquals('Hello, John. Your role is admin.', $renderedMail);
+    }
 }
