@@ -118,10 +118,12 @@ abstract class TemplateMailable extends Mailable
     public function buildViewData(): array
     {
         $mailablePropeties = parent::buildViewData();
+
         return array_merge($mailablePropeties, $this->additionalData ?? []);
     }
 
-    public function setAdditionalData($array) {
+    public function setAdditionalData($array)
+    {
         $this->additionalData = $array;
     }
 }
