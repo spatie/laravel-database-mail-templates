@@ -5,10 +5,11 @@ namespace Spatie\MailTemplates\Tests;
 use Spatie\MailTemplates\Tests\stubs\Mails\BasicMail;
 use Spatie\MailTemplates\Tests\stubs\Mails\CustomTemplateModelMail;
 use Spatie\MailTemplates\Tests\stubs\Models\CustomMailTemplate;
+use PHPUnit\Framework\Attributes\Test;
 
 class CustomMailTemplateTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_can_render_a_mailable_using_a_custom_mail_template()
     {
         $this->createMailTemplateForMailable(BasicMail::class, CustomMailTemplate::class, ['use' => true]);
@@ -18,7 +19,7 @@ class CustomMailTemplateTest extends TestCase
         $this->assertEquals('<main>Hello, John</main>', $renderedMail);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_resolve_a_mail_template_for_a_mailable_based_on_a_custom_scope()
     {
         $this->createMailTemplateForMailable(CustomTemplateModelMail::class, CustomMailTemplate::class, ['use' => false]);
