@@ -2,10 +2,10 @@
 
 namespace Spatie\MailTemplates\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\MailTemplates\Models\MailTemplate;
 use Spatie\MailTemplates\Tests\stubs\Mails\BasicMail;
 use Spatie\MailTemplates\Tests\stubs\Models\LayoutMailTemplate;
-use PHPUnit\Framework\Attributes\Test;
 
 class MailTemplateModelTest extends TestCase
 {
